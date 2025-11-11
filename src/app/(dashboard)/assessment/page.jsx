@@ -10,7 +10,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, ArrowRight } from "lucide-react";
 
-// Ini adalah Server Component
+export const dynamic = "force-dynamic";
+
 export default async function AssessmentSelectionPage() {
   const result = await getAssessmentTemplates();
 

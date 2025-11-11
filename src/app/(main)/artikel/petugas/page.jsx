@@ -12,6 +12,8 @@ import ClientImage from "@/components/shared/ClientImage";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
+export const dynamic = "force-dynamic";
+
 export default async function ArtikelPetugasPage() {
   const result = await getArticles("petugas");
 
