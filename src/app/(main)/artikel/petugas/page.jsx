@@ -60,7 +60,11 @@ export default async function ArtikelPetugasPage() {
       {/* Galeri Artikel */}
       <h2 className="text-3xl font-bold text-center mb-4">Edukasi Petugas</h2>
       <p className="text-xl text-gray-600 text-center mb-12">
-        Artikel edukasi untuk petugas membantu melakukan pemeriksaan.
+        Artikel edukasi ini dibuat untuk membantu petugas dalam melakukan
+        pemeriksaan secara tepat, dengan masukan dari Tim PMP:
+        <b>Ni Ketut Kardiyudiani, M.Kep., Sp.Kep.MB., PhD</b>,
+        <b>NS Rudi Haryono, S.Kep., Ns., M.Kep</b>, dan&nbsp;
+        <b>apt. Pramitha Esha ND, M.Sc., PhD</b>.
       </p>
 
       {!result.success && (
