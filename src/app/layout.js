@@ -1,7 +1,6 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ZustandInitializer } from "@/hooks/ZustandInitializer";
-import Navbar from "@/components/shared/Navbar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -9,8 +8,14 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "OMC - Oral Mukositis Care",
+  title: {
+    default: "OMC - Oral Mukositis Care",
+    template: "%s | OMC - Oral Mukositis Care",
+  },
   description: "Aplikasi Perawatan Oral Mukositis",
+  icons: {
+    icon: "/images/iconwebomc.png",
+  },
 };
 
 export default function RootLayout({ children }) {

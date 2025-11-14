@@ -8,6 +8,10 @@ import AboutSection from "@/components/section/AboutSection";
 import TeamSection from "@/components/section/TeamSection";
 import AcknowledgementSection from "@/components/section/AcknowledgementSection";
 
+export const metadata = {
+  title: "Beranda"
+}
+
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
