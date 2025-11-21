@@ -7,10 +7,11 @@ import CtaSection from "@/components/section/CtaSection";
 import AboutSection from "@/components/section/AboutSection";
 import TeamSection from "@/components/section/TeamSection";
 import AcknowledgementSection from "@/components/section/AcknowledgementSection";
+import VideoAnimationSection from "@/components/section/VideoAnimationSection";
 
 export const metadata = {
-  title: "Beranda"
-}
+  title: "Beranda",
+};
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
         <HeroSection />
         <FeaturesSection />
         <AboutSection />
+        <VideoAnimationSection />
         <EducationModuleSection />
         <HowItWorksSection />
         <TeamSection />

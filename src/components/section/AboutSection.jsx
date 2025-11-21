@@ -34,7 +34,7 @@ export default function AboutSection() {
             </p>
 
             <div className="space-y-4">
-              <div className="flex items-start space-x-4">
+              {/* <div className="flex items-start space-x-4">
                 <div className="shrink-0 mt-1">
                   <div className="flex items-center justify-center h-10 w-10 rounded-full bg-emerald-100 text-emerald-600">
                     <Check />
@@ -49,7 +49,7 @@ export default function AboutSection() {
                     dan di mana saja.
                   </p>
                 </div>
-              </div>
+              </div> */}
 
               <div className="flex items-start space-x-4">
                 <div className="shrink-0 mt-1">
@@ -62,8 +62,8 @@ export default function AboutSection() {
                     Pemantauan Berkala
                   </h3>
                   <p className="text-gray-600">
-                    Pantau perkembangan kondisi Anda dengan mudah melalui
-                    platform kami.
+                    Pantau perkembangan kondisi oral mukositis Anda dengan mudah
+                    melalui platform kami.
                   </p>
                 </div>
               </div>

@@ -11,13 +11,13 @@ const modules = [
     icon: <BookOpen className="h-10 w-10 text-white" />,
     title: "E-Book Panduan",
     description:
-      "Panduan lengkap caring & oral mukositis dalam format ringkas.",
+      "Panduan lengkap caring & oral mukositis tersaji dalam bentuk artikel. ",
   },
   {
     icon: <FileImage className="h-10 w-10 text-white" />,
-    title: "Infografis",
+    title: "Interpretasi Klinis",
     description:
-      "Lihat gambar lesi mukositis (tingkat 1-4) dan cara pencegahan.",
+      "Interpretasi klinis mukositis (grade 0-4) yang dijelaskan secara ringkas dan mudah dipahami.",
   },
 ];
 

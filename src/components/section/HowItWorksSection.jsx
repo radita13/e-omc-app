@@ -6,7 +6,7 @@ function StepCard({ number, title, description }) {
           {number}
         </div>
         <h3 className="font-semibold text-xl mb-2">{title}</h3>
-        <p className="text-gray-600">{description}</p>
+        <p className="text-gray-600 max-w-xs mx-auto">{description}</p>
       </div>
     </div>
   );
@@ -39,7 +39,7 @@ export default function HowItWorksSection() {
           <StepCard
             number="03"
             title="Dapatkan Hasil"
-            description="Lihat skor dan rekomendasi perawatan"
+            description="Lihat grade dan interpretasi klinis mukositis oral Anda"
           />
         </div>
       </div>
