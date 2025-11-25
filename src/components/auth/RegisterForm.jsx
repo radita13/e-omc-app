@@ -15,8 +15,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { registerUser } from "@/services/authService";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function RegisterForm() {
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [form, setForm] = useState({
     username: "",
@@ -107,13 +109,24 @@ export default function RegisterForm() {
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
-              <Input
-                name="password"
-                type="password"
-                placeholder=""
-                onChange={handleChange}
-                required
-              />
+
+              <div className="relative">
+                <Input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder=""
+                  onChange={handleChange}
+                  required
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
           </div>
           {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
