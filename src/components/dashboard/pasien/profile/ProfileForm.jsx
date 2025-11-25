@@ -64,8 +64,7 @@ export default function ProfileForm() {
             fullName: result.data.profile?.fullName || "",
             email: result.data.email || "",
             diagnosis: result.data.profile?.diagnosis || "",
-            medicalRecordNumber:
-              result.data.profile?.medicalRecordNumber || "",
+            medicalRecordNumber: result.data.profile?.medicalRecordNumber || "",
             chemoType: result.data.profile?.chemoType || "",
             radioType: result.data.profile?.radioType || "",
           });
@@ -81,7 +80,6 @@ export default function ProfileForm() {
       }
     })();
   }, [user]);
-
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -101,7 +99,9 @@ export default function ProfileForm() {
 
     if (result.success) {
       setProfileSuccess("Perubahan berhasil disimpan!");
-      useAuthStore.setState({ user: { ...user, username: result.data.username } });
+      useAuthStore.setState({
+        user: { ...user, username: result.data.username },
+      });
     } else {
       setProfileError(result.error);
     }
@@ -242,6 +242,7 @@ export default function ProfileForm() {
                     name="fullName"
                     value={form.fullName}
                     onChange={handleChange}
+                    placeholder="Joko Prasetyo"
                   />
                 </div>
 
@@ -252,6 +253,7 @@ export default function ProfileForm() {
                     name="medicalRecordNumber"
                     value={form.medicalRecordNumber}
                     onChange={handleChange}
+                    placeholder="Contoh: RM123456, RM-2025-001234, dsb."
                   />
                 </div>
 
@@ -262,26 +264,29 @@ export default function ProfileForm() {
                     name="diagnosis"
                     value={form.diagnosis}
                     onChange={handleChange}
+                    placeholder="Contoh: Oral Mucositis Grade II (komplikasi terapi) + kanker orofaring, Kanker Paru-paru, dsb."
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="chemoType">Jenis Chemo</Label>
+                  <Label htmlFor="chemoType">Jenis Kemoterapi</Label>
                   <Input
                     id="chemoType"
                     name="chemoType"
                     value={form.chemoType}
                     onChange={handleChange}
+                    placeholder="Contoh: 5-FU + Cisplatin (CF regimen), Docetaxel + Cisplatin, dsb."
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="radioType">Jenis Radio</Label>
+                  <Label htmlFor="radioType">Jenis Radioterapi</Label>
                   <Input
                     id="radioType"
                     name="radioType"
                     value={form.radioType}
                     onChange={handleChange}
+                    placeholder="Contoh: VMAT 66 Gy / 33 fraksi, 3D-CRT 60 Gy / 30 fraksi, dsb."
                   />
                 </div>
 
