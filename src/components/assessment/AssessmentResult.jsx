@@ -9,9 +9,14 @@ import {
   CardDescription,
   CardFooter,
 } from "@/components/ui/card";
-import { CheckCircle, AlertTriangle } from "lucide-react";
+import { CheckCircle, AlertTriangle, ArrowLeft } from "lucide-react";
 
-export default function AssessmentResult({ result, onRestart, onDashboard }) {
+export default function AssessmentResult({
+  result,
+  onRestart,
+  onDashboard,
+  onBack,
+}) {
   if (!result) return null;
 
   const isWarning = result.finalGrade >= 3;
@@ -43,12 +48,24 @@ export default function AssessmentResult({ result, onRestart, onDashboard }) {
         </div>
       </CardContent>
       <CardFooter className="flex flex-col gap-4">
-        <Button onClick={onRestart} className="w-full">
-          Ulangi Assessment
-        </Button>
-        <Button variant="outline" onClick={onDashboard} className="w-full">
-          Lihat Riwayat Saya
-        </Button>
+        {onBack ? (
+          <Button onClick={onBack} className="w-full cursor-pointer">
+            Kembali
+          </Button>
+        ) : (
+          <>
+            <Button onClick={onRestart} className="w-full cursor-pointer">
+              Ulangi Assessment
+            </Button>
+            <Button
+              variant="outline"
+              onClick={onDashboard}
+              className="w-full cursor-pointer"
+            >
+              Lihat Riwayat Saya
+            </Button>
+          </>
+        )}
       </CardFooter>
     </Card>
   );

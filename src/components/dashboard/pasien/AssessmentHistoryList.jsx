@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 
 export default function AssessmentHistoryList() {
   const [history, setHistory] = useState([]);
@@ -74,7 +75,8 @@ export default function AssessmentHistoryList() {
             <TableRow>
               <TableHead>Template</TableHead>
               <TableHead>Tanggal</TableHead>
-              <TableHead className="text-right">Grade</TableHead>
+              <TableHead className="text-center">Grade</TableHead>
+              <TableHead className="text-right">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -97,10 +99,15 @@ export default function AssessmentHistoryList() {
                       year: "numeric",
                     })}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-center">
                     <Badge variant={getGradeBadgeVariant(item.finalGrade)}>
                       Grade {item.finalGrade}
                     </Badge>
+                  </TableCell>
+                  <TableCell className="text-blue-600 hover:underline text-right">
+                    <Link href={`/history/assessment/detail/${item.id}`}>
+                      Detail
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))
