@@ -94,7 +94,7 @@ export default function UserList() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>ID</TableHead>
+                  <TableHead>No</TableHead>
                   <TableHead>Nama</TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Role</TableHead>
@@ -103,31 +103,38 @@ export default function UserList() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {users.map((u) => (
-                  <TableRow key={u.id}>
-                    <TableCell>{u.id}</TableCell>
-                    <TableCell>{u.username}</TableCell>
-                    <TableCell>{u.email}</TableCell>
-                    <TableCell>{u.role}</TableCell>
-                    <TableCell>
-                      {new Date(u.createdAt).toLocaleString("id-ID", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => handleDelete(u.id)}
-                      >
-                        <Trash2 className="h-4 w-4 mr-1" />
-                        Hapus
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {users.map((u, index) => {
+                  const page = pagination?.currentPage ?? 1;
+                  const limit = pagination?.limit ?? users.length;
+                  const number = (page - 1) * limit + (index + 1);
+
+                  return (
+                    <TableRow key={u.id}>
+                      <TableCell>{number}</TableCell>
+                      <TableCell>{u.username}</TableCell>
+                      <TableCell>{u.email}</TableCell>
+                      <TableCell>{u.role}</TableCell>
+                      <TableCell>
+                        {new Date(u.createdAt).toLocaleString("id-ID", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button
+                          className="cursor-pointer"
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => handleDelete(u.id)}
+                        >
+                          <Trash2 className="h-4 w-4 mr-1" />
+                          Hapus
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
 
@@ -137,6 +144,7 @@ export default function UserList() {
                 <PaginationContent>
                   <PaginationItem>
                     <PaginationPrevious
+                      className="cursor-pointer"
                       onClick={() => goToPage(pagination.currentPage - 1)}
                       disabled={pagination.currentPage <= 1}
                     />
@@ -159,10 +167,9 @@ export default function UserList() {
 
                   <PaginationItem>
                     <PaginationNext
+                      className="cursor-pointer"
                       onClick={() => goToPage(pagination.currentPage + 1)}
-                      disabled={
-                        pagination.currentPage >= pagination.totalPages
-                      }
+                      disabled={pagination.currentPage >= pagination.totalPages}
                     />
                   </PaginationItem>
                 </PaginationContent>
