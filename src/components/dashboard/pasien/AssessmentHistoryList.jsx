@@ -42,11 +42,54 @@ export default function AssessmentHistoryList() {
     fetchHistory();
   }, []);
 
-  // Fungsi untuk menentukan warna Badge berdasarkan Grade
+  const getColorClasses = (colorKey) => {
+    switch (colorKey) {
+      case "green":
+        return {
+          bg: "bg-green-50",
+          border: "border-green-200",
+          text: "text-green-700",
+        };
+      case "yellow":
+        return {
+          bg: "bg-yellow-50",
+          border: "border-yellow-200",
+          text: "text-yellow-800",
+        };
+      case "orange":
+        return {
+          bg: "bg-orange-50",
+          border: "border-orange-200",
+          text: "text-orange-800",
+        };
+      case "red":
+        return {
+          bg: "bg-red-50",
+          border: "border-red-200",
+          text: "text-red-800",
+        };
+      case "darkred":
+        return {
+          bg: "bg-red-100",
+          border: "border-red-400",
+          text: "text-red-900",
+        };
+      default:
+        return {
+          bg: "bg-gray-50",
+          border: "border-gray-200",
+          text: "text-gray-800",
+        };
+    }
+  };
+
+  // Menentukan variant badge berdasarkan grade
   const getGradeBadgeVariant = (grade) => {
-    if (grade >= 3) return "destructive"; // Merah untuk Grade 3-4
-    if (grade >= 1) return "outline"; // Kuning/Netral for Grade 1-2
-    return "secondary"; // Abu-abu untuk Grade 0
+    if (grade >= 4) return "darkred";
+    if (grade >= 3) return "red";
+    if (grade >= 2) return "orange";
+    if (grade >= 1) return "yellow";
+    return "green"; 
   };
 
   if (loading) {
@@ -100,9 +143,18 @@ export default function AssessmentHistoryList() {
                     })}
                   </TableCell>
                   <TableCell className="text-center">
-                    <Badge variant={getGradeBadgeVariant(item.finalGrade)}>
-                      Grade {item.finalGrade}
-                    </Badge>
+                    {(() => {
+                      const colorKey = getGradeBadgeVariant(item.finalGrade);
+                      const color = getColorClasses(colorKey);
+
+                      return (
+                        <Badge
+                          className={`${color.bg} ${color.border} ${color.text} border px-3 py-1 rounded-full`}
+                        >
+                          Grade {item.finalGrade}
+                        </Badge>
+                      );
+                    })()}
                   </TableCell>
                   <TableCell className="text-blue-600 hover:underline text-right">
                     <Link href={`/history/assessment/detail/${item.id}`}>
