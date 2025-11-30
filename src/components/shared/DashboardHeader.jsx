@@ -40,6 +40,7 @@ const getTitleFromPathname = (pathname) => {
   if (pathname.startsWith("/dashboard/admin")) return "Admin Dashboard";
   if (pathname.startsWith("/dashboard/manajemen-user")) return "Manajemen User";
   if (pathname.startsWith("/dashboard/artikel")) return "Artikel";
+  if (pathname.startsWith("/dashboard/assessment")) return "Assessment";
   return "e-OMC";
 };
 
@@ -154,7 +155,6 @@ export default function DashboardHeader({ onMenuClick }) {
                 <span className="cursor-pointer">Dashboard</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>
-
 
             <DropdownMenuItem onClick={handleLogout} className="text-red-500">
               <LogOut className="mr-2 h-4 w-4" />

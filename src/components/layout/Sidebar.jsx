@@ -11,6 +11,7 @@ import {
   Shield,
   Users,
   Newspaper,
+  ScrollText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -56,6 +57,11 @@ export default function Sidebar({ onLinkClick }) {
       href: "/dashboard/artikel",
       label: "Artikel",
       icon: Newspaper,
+    },
+    {
+      href: "/dashboard/assessment",
+      label: "Assessment",
+      icon: ScrollText,
     }
   ]
 

@@ -89,7 +89,7 @@ export default function AssessmentHistoryList() {
     if (grade >= 3) return "red";
     if (grade >= 2) return "orange";
     if (grade >= 1) return "yellow";
-    return "green"; 
+    return "green";
   };
 
   if (loading) {
@@ -116,10 +116,10 @@ export default function AssessmentHistoryList() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Template</TableHead>
+              <TableHead>Judul</TableHead>
               <TableHead>Tanggal</TableHead>
               <TableHead className="text-center">Grade</TableHead>
-              <TableHead className="text-right">Action</TableHead>
+              <TableHead className="text-right">Aksi</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -133,7 +133,7 @@ export default function AssessmentHistoryList() {
               history.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell className="font-medium">
-                    {item.AssessmentTemplate.title}
+                    {item.AssessmentTemplate?.title || "Assessment Sebelumnya"}
                   </TableCell>
                   <TableCell>
                     {new Date(item.createdAt).toLocaleDateString("id-ID", {
