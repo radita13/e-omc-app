@@ -4,7 +4,7 @@ import { HeartHandshake } from "lucide-react";
 
 export default function AcknowledgementSection() {
   return (
-    <section className="bg-gradient-to-b from-cyan-800 to-cyan-900 text-white py-20">
+    <section className="bg-linear-to-b from-cyan-800 to-cyan-900 text-white py-20">
       <div className="container mx-auto sm:px-15 px-4 text-center">
         {/* Ikon Apresiasi */}
         <div className="flex justify-center mb-6">
