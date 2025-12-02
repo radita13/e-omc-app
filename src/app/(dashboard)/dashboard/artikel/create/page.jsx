@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { createArticle } from "@/services/adminArticleService";
+import { createArticle } from "@/services/adminArticle.Service";
 import Image from "next/image";
 import {
   Select,

@@ -1,7 +1,7 @@
 "use client";
 
 import { create } from "zustand";
-import { startAssessment, submitAnswer } from "@/services/assessmentService";
+import { startAssessment, submitAnswer } from "@/services/assessment.Service";
 
 // State yang akan disimpan selama assessment
 const initialState = {

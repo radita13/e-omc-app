@@ -89,3 +89,45 @@ export const deleteUserById = async (id) => {
     return { success: false, error: "Tidak bisa terhubung ke server." };
   }
 };
+
+export const downloadExcelReport = async (startDate, endDate) => {
+  try {
+    const url = `${API_URL}/admin/export/excel?startDate=${startDate}&endDate=${endDate}`;
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: getAuthHeader(), // Pastikan token terkirim
+    });
+
+    // --- PERBAIKAN DI SINI ---
+    if (!response.ok) {
+      // Coba baca pesan error JSON dari backend
+      let errorMessage = "Gagal mengunduh laporan.";
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData.message || errorMessage;
+      } catch (e) {
+        // Jika backend error HTML (500/404), ambil status text
+        errorMessage = `Error ${response.status}: ${response.statusText}`;
+      }
+      throw new Error(errorMessage);
+    }
+    // -------------------------
+
+    const blob = await response.blob();
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = `Laporan_OMC_${startDate}_sd_${endDate}.xlsx`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(downloadUrl);
+
+    return { success: true };
+  } catch (error) {
+    console.error("Download Error:", error);
+    // Return pesan error asli ke UI
+    return { success: false, error: error.message };
+  }
+};

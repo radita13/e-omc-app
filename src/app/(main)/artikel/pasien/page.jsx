@@ -1,4 +1,4 @@
-import { getArticles } from "@/services/articleService";
+import { getArticles } from "@/services/article.Service";
 import PatientArticleList from "@/components/articles/pasien/PatientArticleList";
 import { AlertTriangle } from "lucide-react";
 

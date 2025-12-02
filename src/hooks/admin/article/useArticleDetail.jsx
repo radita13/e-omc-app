@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getArticleById } from "@/services/adminArticleService";
+import { getArticleById } from "@/services/adminArticle.Service";
 
 export function useArticleDetail(id) {
   const [article, setArticle] = useState(null);

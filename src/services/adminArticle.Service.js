@@ -8,7 +8,7 @@ const getAuthHeader = () => {
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
-// 🔹 GET semua artikel (pagination)
+// 🔹 GET all article
 export const getAllArticles = async (page = 1, limit = 5) => {
   try {
     const res = await fetch(
@@ -37,7 +37,7 @@ export const getAllArticles = async (page = 1, limit = 5) => {
   }
 };
 
-// 🔹 GET by ID
+//  GET by ID
 export const getArticleById = async (id) => {
   try {
     const res = await fetch(`${API_URL}/admin/articles/${id}`, {
@@ -59,7 +59,7 @@ export const getArticleById = async (id) => {
   }
 };
 
-// 🔹 CREATE
+//  CREATE
 export const createArticle = async (formData) => {
   try {
     const res = await fetch(`${API_URL}/admin/articles`, {
@@ -81,7 +81,7 @@ export const createArticle = async (formData) => {
   }
 };
 
-// 🔹 UPDATE
+//  UPDATE
 export const updateArticle = async (id, formData) => {
   try {
     const res = await fetch(`${API_URL}/admin/articles/${id}`, {
@@ -103,7 +103,7 @@ export const updateArticle = async (id, formData) => {
   }
 };
 
-// 🔹 DELETE
+// DELETE
 export const deleteArticleById = async (id) => {
   try {
     const res = await fetch(`${API_URL}/admin/articles/${id}`, {

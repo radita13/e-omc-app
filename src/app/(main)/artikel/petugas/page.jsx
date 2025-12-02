@@ -1,4 +1,4 @@
-import { getArticles } from "@/services/articleService";
+import { getArticles } from "@/services/article.Service";
 import PetugasHeader from "@/components/articles/petugas/PetugasHeader";
 import PetugasPanduanCard from "@/components/articles/petugas/PetugasPanduanCard";
 import PetugasArticleCard from "@/components/articles/petugas/PetugasArticleCard";

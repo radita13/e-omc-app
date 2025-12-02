@@ -1,7 +1,7 @@
 "use client";
 
 import AssessmentResult from "@/components/assessment/AssessmentResult";
-import { getSubmissionHistory } from "@/services/assessmentService";
+import { getSubmissionHistory } from "@/services/assessment.Service";
 import { Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

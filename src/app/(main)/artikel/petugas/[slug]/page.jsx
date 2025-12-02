@@ -1,4 +1,4 @@
-import { getArticleBySlug } from "@/services/articleService";
+import { getArticleBySlug } from "@/services/article.Service";
 import { notFound } from "next/navigation";
 
 import BackButton from "@/components/articles/detail/BackButton";

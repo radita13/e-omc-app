@@ -1,7 +1,7 @@
 "use client";
 import { startTransition, useEffect, useRef, useState } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
-import { getMyProfile, updateMyProfile } from "@/services/userService";
+import { getMyProfile, updateMyProfile } from "@/services/user.Service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
