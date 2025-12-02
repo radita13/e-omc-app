@@ -34,10 +34,10 @@ export default function QuestionCard({ question, onSubmitAnswer, isLoading }) {
     let answerData = { questionId: question.id };
 
     if (question.questionType === "radio") {
-      if (!selectedValue) return; 
+      if (!selectedValue) return;
       answerData.optionId = selectedValue;
     } else if (question.questionType === "checkbox") {
-      if (selectedValues.length === 0) return; 
+      if (selectedValues.length === 0) return;
       answerData.optionIds = selectedValues;
     }
 
@@ -47,7 +47,7 @@ export default function QuestionCard({ question, onSubmitAnswer, isLoading }) {
   };
 
   return (
-    <Card className="w-full max-w-lg">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>{question.aspect || "Pertanyaan"}</CardTitle>
         <CardDescription>{question.questionText}</CardDescription>
@@ -96,7 +96,7 @@ export default function QuestionCard({ question, onSubmitAnswer, isLoading }) {
         <CardFooter>
           <Button
             type="submit"
-            className="w-full"
+            className="w-full mt-2 cursor-pointer"
             disabled={
               isLoading ||
               (question.questionType === "radio" && !selectedValue) ||

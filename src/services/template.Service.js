@@ -1,15 +1,12 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-/**
- * Mengambil daftar semua template assessment yang tersedia
- * (Fungsi ini dipindah dari assessmentService.js)
- */
+// Get all assessment templates
 export const getAssessmentTemplates = async () => {
   try {
     const response = await fetch(`${API_URL}/templates`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      cache: "no-store", // Selalu ambil data baru
+      cache: "no-store",
     });
 
     const data = await response.json();
