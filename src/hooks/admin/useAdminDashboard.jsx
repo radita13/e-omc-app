@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import {
   getDashboardStats,
   getAssessmentTimeline,
-} from "@/services/adminService";
+} from "@/services/admin.Service";
 
 export function useAdminDashboard() {
   const [stats, setStats] = useState(null);

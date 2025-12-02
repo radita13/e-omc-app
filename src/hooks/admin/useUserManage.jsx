@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { getAllUsers, deleteUserById } from "@/services/adminService";
+import { getAllUsers, deleteUserById } from "@/services/admin.Service";
 
 export const useUserManage = (initialPage = 1, initialLimit = 10) => {
   const [users, setUsers] = useState([]);

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getSubmissionHistory } from "@/services/assessmentService";
+import { getSubmissionHistory } from "@/services/assessment.Service";
 import {
   Card,
   CardContent,

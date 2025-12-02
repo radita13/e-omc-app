@@ -2,10 +2,7 @@
 import { useAuthStore } from "@/store/useAuthStore";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-/**
- * Mengambil data profil gabungan (User + PatientProfile)
- * dari backend
- */
+// Get my profile
 export const getMyProfile = async () => {
   const token = useAuthStore.getState().token;
   if (!token) return { success: false, error: "Tidak ada token otorisasi." };
@@ -34,9 +31,7 @@ export const getMyProfile = async () => {
   }
 };
 
-/**
- * Mengirim update data profil (gabungan) ke backend
- */
+// Update my profile
 export const updateMyProfile = async (profileData) => {
   const { token, setUser } = useAuthStore.getState();
   if (!token) return { success: false, error: "Tidak ada token otorisasi." };

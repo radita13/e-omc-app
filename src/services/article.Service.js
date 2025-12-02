@@ -1,9 +1,6 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-/**
- * Mengambil daftar artikel
- * @param {string} category - 'pasien' atau 'petugas'
- */
+// Get all articles by category
 export const getArticles = async (category) => {
   try {
     const response = await fetch(`${API_URL}/articles?category=${category}`, {
@@ -26,10 +23,7 @@ export const getArticles = async (category) => {
   }
 };
 
-/**
- * Mengambil satu artikel (termasuk semua gambar detail [src: 280])
- * @param {string} slug - URL-friendly slug
- */
+// Get article by slug
 export const getArticleBySlug = async (slug) => {
   try {
     const response = await fetch(`${API_URL}/articles/${slug}`, {
@@ -45,7 +39,6 @@ export const getArticleBySlug = async (slug) => {
         error: data.message || "Artikel tidak ditemukan.",
       };
     }
-    // data.data akan berisi satu objek artikel, termasuk array 'images' [src: 280]
     return { success: true, data: data.data };
   } catch (error) {
     console.error("Error di getArticleBySlug:", error);

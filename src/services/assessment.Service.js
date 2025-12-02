@@ -3,9 +3,7 @@ import { useAuthStore } from "@/store/useAuthStore";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-/**
- * Mengambil 3 riwayat assessment terakhir untuk user yang login
- */
+// Get submission history
 export const getSubmissionHistory = async () => {
   try {
     const token = useAuthStore.getState().token;
@@ -31,9 +29,7 @@ export const getSubmissionHistory = async () => {
   }
 };
 
-/**
- * Memulai assessment baru untuk template tertentu
- */
+// Start assessment
 export const startAssessment = async (templateId) => {
   try {
     const token = useAuthStore.getState().token;

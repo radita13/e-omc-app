@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select";
 import { X } from "lucide-react";
 
-import { getArticleById, updateArticle } from "@/services/adminArticleService";
+import { getArticleById, updateArticle } from "@/services/adminArticle.Service";
 
 export default function EditArticlePage() {
   const router = useRouter();

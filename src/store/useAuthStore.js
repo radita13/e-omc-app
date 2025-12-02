@@ -1,7 +1,7 @@
 "use client";
 
 import { create } from "zustand";
-import { loginUser } from "@/services/authService";
+import { loginUser } from "@/services/auth.Service";
 
 export const useAuthStore = create((set) => ({
   user: null,
