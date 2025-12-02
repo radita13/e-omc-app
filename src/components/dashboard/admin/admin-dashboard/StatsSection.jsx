@@ -39,7 +39,7 @@ export const StatsSection = ({ stats }) => {
         />
         <StatCard
           title="Aktivitas Assessment"
-          value={stats?.totalSubmissions ?? 0}
+          value={stats?.submissionsToday ?? 0}
           description="Asesmen yang masuk hari ini"
           icon={<Clock className="h-4 w-4 text-muted-foreground" />}
         />
