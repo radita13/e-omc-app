@@ -20,7 +20,6 @@ export default function AcknowledgementSection() {
 
         {/* Kotak Logo dengan background putih */}
 
-
         {/* Card Ucapan Terima Kasih */}
         <Card className="bg-cyan-700 border-cyan-600 text-white mx-auto max-w-3xl shadow-xl">
           <CardContent className="p-8">
@@ -53,8 +52,8 @@ export default function AcknowledgementSection() {
                 BIMA - Kemendikbudristek
               </span>
               <span className="block mt-2">
-                atas dukungan dana hibah Program Kreativitas Mahasiswa (PKM)
-                tahun 2025 yang telah diberikan.
+                atas dukungan dana hibah pengabdian masyarakat tahun 2025 yang
+                telah diberikan.
               </span>
             </p>
           </CardContent>
