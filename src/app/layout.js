@@ -1,6 +1,7 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ZustandInitializer } from "@/hooks/ZustandInitializer";
+import { Toaster } from "@/components/ui/sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
       <body className={`${poppins.className} font-sans`}>
         <ZustandInitializer />
         <main>{children}</main>
+        <Toaster richColors />
       </body>
     </html>
   );

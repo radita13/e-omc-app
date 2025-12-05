@@ -9,8 +9,8 @@ export const useAuthStore = create((set) => ({
   isAuthenticated: false,
   loading: true,
 
-  login: async (email, password) => {
-    const result = await loginUser(email, password);
+  login: async (email, no_hp, password) => {
+    const result = await loginUser(email, no_hp, password);
 
     if (result.success) {
       const { token, ...userData } = result.data;
@@ -24,7 +24,7 @@ export const useAuthStore = create((set) => ({
 
       return { success: true };
     } else {
-      return { success: false, error: result.error };
+      return { success: false, error: result.error, errors: result.errors };
     }
   },
 

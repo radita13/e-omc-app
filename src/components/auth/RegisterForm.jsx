@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { registerUser } from "@/services/auth.Service";
 import { Eye, EyeOff } from "lucide-react";
+import { toast } from "sonner";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,30 +24,38 @@ export default function RegisterForm() {
   const [form, setForm] = useState({
     username: "",
     email: "",
+    no_hp: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "no_hp") {
+      const numericValue = value.replace(/[^0-9]/g, "");
+
+      setForm({ ...form, [name]: numericValue });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setErrors({});
     setLoading(true);
-
-    if (form.password.length < 6) {
-      setError("Password minimal harus 6 karakter.");
-      setLoading(false);
-      return;
-    }
 
     try {
       const result = await registerUser(form);
 
       if (result.success) {
+        toast.success("Registrasi Berhasil!", {
+          description: "Selamat datang di e-OMc! Silakan masuk.",
+          duration: 5000,
+        });
+
         const randomValues = new Uint8Array(20);
         crypto.getRandomValues(randomValues);
         const uniqueToken = Array.from(randomValues)
@@ -56,11 +65,15 @@ export default function RegisterForm() {
         sessionStorage.setItem("registerSuccessToken", uniqueToken);
         router.push(`/auth/success?token=${uniqueToken}`);
       } else {
-        setError(result.error);
+        if (result.errors) {
+          setErrors(result.errors);
+        } else {
+          setErrors({ global: result.error || "Terjadi kesalahan." });
+        }
       }
     } catch (err) {
       console.error(err);
-      setError("Terjadi kesalahan. Silakan coba lagi.");
+      setErrors({ global: "Terjadi kesalahan sistem. Silakan coba lagi." });
     } finally {
       setLoading(false);
     }
@@ -80,7 +93,7 @@ export default function RegisterForm() {
           Buat Akun Baru
         </CardTitle>
         <CardDescription className="text-center">
-          Daftar untuk memulai perjalanan Anda bersama kami.
+          Daftar untuk memulai menggetahui kondisi mukositis oral Anda.
         </CardDescription>
       </CardHeader>
 
@@ -92,20 +105,42 @@ export default function RegisterForm() {
               <Input
                 name="username"
                 type="text"
-                placeholder=""
+                placeholder="Joko"
                 onChange={handleChange}
                 required
               />
+              {errors.username && (
+                <span className="text-xs text-red-500">{errors.username}</span>
+              )}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">Email</Label>
               <Input
                 name="email"
                 type="email"
-                placeholder="example@gmail.com"
+                placeholder="joko@gmail.com"
                 onChange={handleChange}
                 required
               />
+              {errors.email && (
+                <span className="text-xs text-red-500">{errors.email}</span>
+              )}
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="no_hp">No.Hp</Label>
+              <Input
+                name="no_hp"
+                type="tel"
+                pattern="[0-9]*"
+                inputMode="numeric"
+                placeholder="0812xxx"
+                value={form.no_hp}
+                onChange={handleChange}
+                required
+              />
+              {errors.no_hp && (
+                <span className="text-xs text-red-500">{errors.no_hp}</span>
+              )}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
@@ -114,7 +149,7 @@ export default function RegisterForm() {
                 <Input
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder=""
+                  placeholder="********"
                   onChange={handleChange}
                   required
                 />
@@ -127,9 +162,18 @@ export default function RegisterForm() {
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
+              {errors.password && (
+                <span className="text-xs text-red-500">{errors.password}</span>
+              )}
             </div>
           </div>
-          {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
+          {errors.global && (
+            <div className="mt-4 p-2 bg-red-50 border border-red-200 rounded text-center">
+              <span className="text-xs text-red-600 font-medium">
+                {errors.global}
+              </span>
+            </div>
+          )}
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
           <Button

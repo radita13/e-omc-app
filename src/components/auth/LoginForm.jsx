@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -14,35 +15,66 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
-import { useAuthStore } from "@/store/useAuthStore";
 import { Eye, EyeOff } from "lucide-react";
+import { useAuthStore } from "@/store/useAuthStore";
+import { toast } from "sonner";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+
   const login = useAuthStore((state) => state.login);
 
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
+
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setErrors({});
     setLoading(true);
 
     try {
-      const result = await login(email, password);
+      const isPhoneNumber = /^[0-9]+$/.test(identifier);
+
+      let emailPaylod = null;
+      let noHpPayload = null;
+
+      if (isPhoneNumber) {
+        noHpPayload = identifier;
+      } else {
+        emailPaylod = identifier;
+      }
+
+      const result = await login(emailPaylod, noHpPayload, password);
 
       if (result.success) {
+        toast.success("Login Berhasil!", {
+          description: "Selamat datang kembali di e-OMc!",
+          duration: 5000,
+        });
+
         router.push("/");
       } else {
-        setError(result.error);
+        if (result.errors && typeof result.errors === "object") {
+          const newErrors = {};
+
+          if (result.errors.no_hp) newErrors.identifier = result.errors.no_hp;
+          if (result.errors.email) newErrors.identifier = result.errors.email;
+
+          if (result.errors.password)
+            newErrors.password = result.errors.password;
+
+          setErrors(newErrors);
+        } else {
+          setErrors({ global: result.error || "Login Gagal" });
+        }
       }
     } catch (err) {
       console.error(err);
-      setError("Terjadi kesalahan. Silakan coba lagi.");
+      setErrors({ global: "Terjadi kesalahan. Silakan coba lagi." });
     } finally {
       setLoading(false);
     }
@@ -70,15 +102,21 @@ export default function LoginForm() {
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="identifier">Email/No.Hp</Label>
               <Input
-                name="email"
-                type="email"
-                placeholder="example@gmail.com"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
+                id="identifier"
+                name="identifier"
+                type="text"
+                placeholder="0812xxx | joko@gmail.com"
+                onChange={(e) => setIdentifier(e.target.value)}
+                value={identifier}
                 required
               />
+              {errors.identifier && (
+                <span className="text-xs text-red-500 font-medium">
+                  {errors.identifier}
+                </span>
+              )}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
@@ -86,7 +124,7 @@ export default function LoginForm() {
                 <Input
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder=""
+                  placeholder="********"
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                   required
@@ -100,9 +138,20 @@ export default function LoginForm() {
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
+              {errors.password && (
+                <span className="text-xs text-red-500 font-medium">
+                  {errors.password}
+                </span>
+              )}
             </div>
           </div>
-          {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
+          {errors.global && (
+            <div className="mt-4 p-2 bg-red-50 border border-red-200 rounded text-center">
+              <span className="text-xs text-red-600 font-medium">
+                {errors.global}
+              </span>
+            </div>
+          )}
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
           <Button

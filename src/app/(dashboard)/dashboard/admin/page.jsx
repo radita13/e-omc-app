@@ -1,7 +1,7 @@
 import AdminDashboardView from "@/components/dashboard/admin/admin-dashboard/AdminDashboardView";
 
 export const metadata = {
-  title: "Dashboard Admin | Monitoring Kesehatan",
+  title: "Dashboard Admin",
   description:
     "Pusat kontrol data pasien, statistik asesmen, dan pemetaan kondisi klinis.",
 };
