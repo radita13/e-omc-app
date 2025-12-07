@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { X } from "lucide-react";
-
+import { toast } from "sonner";
 import { getArticleById, updateArticle } from "@/services/adminArticle.Service";
 
 export default function EditArticlePage() {
@@ -116,10 +116,15 @@ export default function EditArticlePage() {
       newImages.forEach((img) => fd.append("images", img));
       oldImages.forEach((img) => fd.append("keepImages[]", img.id));
 
-      await updateArticle(articleId, fd);
-      router.push("/dashboard/artikel");
+      const res = await updateArticle(articleId, fd);
+
+      if (res.success) {
+        toast.success("Artikel berhasil diupdate!", { duration: 5000 });
+        router.push("/dashboard/artikel");
+      }
     } catch (err) {
-      console.error("❌ Error update artikel:", err);
+      console.error(err, "Gagal update artikel");
+      toast.error("Gagal update artikel!", { duration: 5000 });
     } finally {
       setLoading(false);
     }

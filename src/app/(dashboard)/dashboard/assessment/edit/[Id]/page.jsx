@@ -32,7 +32,6 @@ import {
   Trash2,
   UploadCloud,
   Loader2,
-  GripVertical,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
@@ -175,7 +174,7 @@ export default function EditAssessmentPage() {
 
       const res = await updateDraftTemplate(Id, payload);
       if (res.success) {
-        toast.success("Draft berhasil disimpan!");
+        toast.success("Draft berhasil disimpan!", { duration: 5000 });
       } else {
         toast.error(res.error || "Gagal menyimpan draft");
       }
@@ -196,7 +195,7 @@ export default function EditAssessmentPage() {
       try {
         const res = await publishTemplate(Id);
         if (res.success) {
-          toast.success("Assessment berhasil ditayangkan!");
+          toast.success("Assessment berhasil dipublish!", { duration: 5000 });
           router.push("/dashboard/assessment");
         } else {
           toast.error(res.error);

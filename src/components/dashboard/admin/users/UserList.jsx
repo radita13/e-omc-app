@@ -62,23 +62,35 @@ export default function UserList() {
 
   return (
     <Card>
-      <CardHeader className="flex items-center justify-between">
-        <CardTitle>Daftar Pengguna (Pasien)</CardTitle>
-        <div className="flex items-center gap-3">
+      <CardHeader className="flex sm:flex-row flex-col sm:items-center items-start justify-between">
+        <CardTitle className="text-xl font-bold">
+          Daftar Pengguna (Pasien)
+        </CardTitle>
+        <div className="flex items-center gap-3 flex-wrap">
           <Select
             onValueChange={(v) => setLimit(Number(v))}
             defaultValue={String(pagination.limit)}
           >
-            <SelectTrigger className="w-28">
+            <SelectTrigger className="w-28 cursor-pointer">
               <SelectValue placeholder="Limit" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="5">5 / hal</SelectItem>
-              <SelectItem value="10">10 / hal</SelectItem>
-              <SelectItem value="20">20 / hal</SelectItem>
+              <SelectItem className="cursor-pointer" value="5">
+                5 / hal
+              </SelectItem>
+              <SelectItem className="cursor-pointer" value="10">
+                10 / hal
+              </SelectItem>
+              <SelectItem className="cursor-pointer" value="20">
+                20 / hal
+              </SelectItem>
             </SelectContent>
           </Select>
-          <Button variant="outline" onClick={refresh}>
+          <Button
+            variant="outline"
+            className="cursor-pointer"
+            onClick={refresh}
+          >
             Refresh
           </Button>
         </div>
@@ -91,52 +103,56 @@ export default function UserList() {
           </p>
         ) : (
           <>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>No</TableHead>
-                  <TableHead>Nama</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Role</TableHead>
-                  <TableHead>Dibuat Pada</TableHead>
-                  <TableHead className="text-right">Aksi</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {users.map((u, index) => {
-                  const page = pagination?.currentPage ?? 1;
-                  const limit = pagination?.limit ?? users.length;
-                  const number = (page - 1) * limit + (index + 1);
+            <div className="rounded-lg border overflow-hidden">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>No</TableHead>
+                    <TableHead>Nama</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>No.Hp</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead>Dibuat Pada</TableHead>
+                    <TableHead className="text-right">Aksi</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {users.map((u, index) => {
+                    const page = pagination?.currentPage ?? 1;
+                    const limit = pagination?.limit ?? users.length;
+                    const number = (page - 1) * limit + (index + 1);
 
-                  return (
-                    <TableRow key={u.id}>
-                      <TableCell>{number}</TableCell>
-                      <TableCell>{u.username}</TableCell>
-                      <TableCell>{u.email}</TableCell>
-                      <TableCell>{u.role}</TableCell>
-                      <TableCell>
-                        {new Date(u.createdAt).toLocaleString("id-ID", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        })}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Button
-                          className="cursor-pointer"
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => handleDelete(u.id)}
-                        >
-                          <Trash2 className="h-4 w-4 mr-1" />
-                          Hapus
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
+                    return (
+                      <TableRow key={u.id}>
+                        <TableCell>{number}</TableCell>
+                        <TableCell>{u.username}</TableCell>
+                        <TableCell>{u.email}</TableCell>
+                        <TableCell>{u.no_hp}</TableCell>
+                        <TableCell>{u.role}</TableCell>
+                        <TableCell>
+                          {new Date(u.createdAt).toLocaleString("id-ID", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button
+                            className="cursor-pointer"
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => handleDelete(u.id)}
+                          >
+                            <Trash2 className="h-4 w-4 mr-1" />
+                            Hapus
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
 
             {/* PAGINATION SECTION */}
             <div className="flex flex-col sm:flex-row items-center justify-between mt-4 gap-4">

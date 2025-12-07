@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { getAllUsers, deleteUserById } from "@/services/admin.Service";
+import { toast } from "sonner";
 
 export const useUserManage = (initialPage = 1, initialLimit = 10) => {
   const [users, setUsers] = useState([]);
@@ -55,6 +56,7 @@ export const useUserManage = (initialPage = 1, initialLimit = 10) => {
         setLoading(true);
         const res = await deleteUserById(id);
         if (res.success) {
+          toast.success("User berhasil dihapus!", { duration: 5000 });
           await fetchUsers(pagination.currentPage, pagination.limit);
         } else {
           setError(res.error || "Gagal menghapus user.");

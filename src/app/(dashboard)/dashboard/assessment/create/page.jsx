@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Loader2} from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 export default function CreateAssessmentPage() {
@@ -73,7 +73,7 @@ export default function CreateAssessmentPage() {
       const res = await createTemplete(initialPayload);
 
       if (res.success) {
-        toast.success("Assessment berhasil dibuat!");
+        toast.success("Assessment berhasil dibuat!", { duration: 5000 });
         router.push(`/dashboard/assessment/edit/${res.data.id}`);
       } else {
         toast.error(res.error || "Gagal membuat assessment");
@@ -144,9 +144,7 @@ export default function CreateAssessmentPage() {
                     Memproses...
                   </>
                 ) : (
-                  <>
-                    Simpan
-                  </>
+                  <>Simpan</>
                 )}
               </Button>
             </div>

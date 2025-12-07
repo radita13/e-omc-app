@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { X } from "lucide-react";
+import { toast } from "sonner";
 
 export default function CreateArticlePage() {
   const router = useRouter();
@@ -93,10 +94,15 @@ export default function CreateArticlePage() {
       if (thumbnail) fd.append("thumbnailImage", thumbnail);
       images.forEach((img) => fd.append("images", img));
 
-      await createArticle(fd);
-      router.push("/dashboard/artikel");
+      const res = await createArticle(fd);
+
+      if (res.success) {
+        toast.success("Artikel berhasil dibuat!", { duration: 5000 });
+        router.push("/dashboard/artikel");
+      }
     } catch (err) {
-      console.error("❌ Error create artikel:", err);
+      console.error(err, "Gagal membuat artikel");
+      toast.error("Gagal membuat artikel!", { duration: 5000 });
     } finally {
       setLoading(false);
     }

@@ -5,6 +5,7 @@ import {
   getAllArticles,
   deleteArticleById,
 } from "@/services/adminArticle.Service";
+import { toast } from "sonner";
 
 export function useArticles(limit = 5) {
   const [articles, setArticles] = useState([]);
@@ -33,11 +34,11 @@ export function useArticles(limit = 5) {
       if (!confirm("Yakin ingin menghapus artikel ini?")) return false;
       const result = await deleteArticleById(id);
       if (result.success) {
-        alert("Artikel berhasil dihapus!");
+        toast.success("Artikel berhasil dihapus!");
         await fetchArticles(page);
         return true;
       } else {
-        alert(result.error);
+        toast.error(result.error || "Gagal menghapus artikel!");
         return false;
       }
     },

@@ -71,7 +71,7 @@ export default function AdminAssessmentList() {
       try {
         const res = await duplicateTemplate(template.id);
         if (res.success) {
-          toast.success("Versi Draft berhasil dibuat!");
+          toast.success("Versi Draft berhasil dibuat!", { duration: 5000 });
 
           await fetchData();
 
@@ -102,7 +102,9 @@ export default function AdminAssessmentList() {
     try {
       const res = await publishTemplate(id);
       if (res.success) {
-        toast.success("Template berhasil dipublish!");
+        toast.success("Template berhasil dipublish!", {
+          duration: 5000,
+        });
 
         router.refresh();
 
@@ -131,7 +133,7 @@ export default function AdminAssessmentList() {
       const res = await deleteTemplate(template.id);
 
       if (res.success) {
-        toast.success("Template berhasil dihapus!");
+        toast.success("Template berhasil dihapus!", { duration: 5000 });
         await fetchData();
       } else {
         toast.error(res.error);
@@ -173,6 +175,42 @@ export default function AdminAssessmentList() {
         <Loader2 className="animate-spin" />
       </div>
     );
+
+  if (templates.length === 0) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-end">
+          <Button
+            className="cursor-pointer"
+            onClick={() => router.push("/dashboard/assessment/create")}
+          >
+            + Buat Baru
+          </Button>
+        </div>
+
+        <div className="border rounded-lg bg-white">
+          <Table className="space-x-5">
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[50px] text-center">No</TableHead>
+                <TableHead>Judul</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="w-[200px]">Tanggal</TableHead>
+                <TableHead className="text-right pr-5">Aksi</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell colSpan={5} className="h-24 text-center">
+                  Tidak ada data
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -279,9 +317,9 @@ export default function AdminAssessmentList() {
 
                   {item.status !== "published" && (
                     <Button
-                      size="icon" 
+                      size="sm"
                       variant="destructive"
-                      className="h-9 w-9"
+                      className="cursor-pointer"
                       onClick={() => handleDelete(item)}
                       disabled={actionLoading === item.id}
                       title="Hapus Permanen"

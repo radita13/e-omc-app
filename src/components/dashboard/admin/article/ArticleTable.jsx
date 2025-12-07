@@ -13,16 +13,16 @@ import {
 } from "@/components/ui/table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 
-// --- helper function untuk format tanggal ---
+// --- Helper date ---
 const formatDateTime = (dateStr) => {
   const date = new Date(dateStr);
   const options = { day: "2-digit", month: "short", year: "numeric" };
-  const formattedDate = date.toLocaleDateString("id-ID", options); // 21 Nov 2025
+  const formattedDate = date.toLocaleDateString("id-ID", options);
   const formattedTime = date.toLocaleTimeString("id-ID", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-  }); // 09:45
+  }); 
   return `${formattedDate} • ${formattedTime}`;
 };
 
