@@ -23,11 +23,14 @@ export default function ProfileForm() {
     username: "",
     fullName: "",
     email: "",
+    no_hp: "",
     diagnosis: "",
     medicalRecordNumber: "",
     chemoType: "",
     radioType: "",
   });
+
+  const [errorField, setErrorField] = useState({});
 
   // State khusus untuk profile tab
   const [profileLoading, setProfileLoading] = useState(false);
@@ -53,6 +56,7 @@ export default function ProfileForm() {
       setProfileError("");
       setBiodataSuccess("");
       setBiodataError("");
+      setErrorField({});
     });
 
     (async () => {
@@ -63,6 +67,7 @@ export default function ProfileForm() {
             username: result.data.username || "",
             fullName: result.data.profile?.fullName || "",
             email: result.data.email || "",
+            no_hp: result.data.no_hp || "",
             diagnosis: result.data.profile?.diagnosis || "",
             medicalRecordNumber: result.data.profile?.medicalRecordNumber || "",
             chemoType: result.data.profile?.chemoType || "",
@@ -82,7 +87,17 @@ export default function ProfileForm() {
   }, [user]);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (errorField[name]) {
+      setErrorField((prev) => ({ ...prev, [name]: "" }));
+    }
+
+    if (name === "no_hp") {
+      const numericValue = value.replace(/[^0-9]/g, "");
+      setForm({ ...form, [name]: numericValue });
+    } else {
+      setForm({ ...form, [e.target.name]: e.target.value });
+    }
   };
 
   // Handler profile submit
@@ -91,19 +106,22 @@ export default function ProfileForm() {
     setProfileLoading(true);
     setProfileError("");
     setProfileSuccess("");
+    setErrorField({});
 
     const dataToSubmit = {
       username: form.username,
+      no_hp: form.no_hp,
     };
     const result = await updateMyProfile(dataToSubmit);
 
     if (result.success) {
       setProfileSuccess("Perubahan berhasil disimpan!");
-      useAuthStore.setState({
-        user: { ...user, username: result.data.username },
-      });
     } else {
-      setProfileError(result.error);
+      if (result.errors) {
+        setErrorField(result.errors);
+      } else {
+        setProfileError(result.error || "Gagal memperbarui profile");
+      }
     }
     setProfileLoading(false);
   };
@@ -145,11 +163,17 @@ export default function ProfileForm() {
     <>
       {/* Handle Menu Tabs*/}
       <Tabs defaultValue="profile">
-        <TabsList className="border border-gray-950">
-          <TabsTrigger value="profile" className="text-base p-3">
+        <TabsList className="border border-gray-950 py-5">
+          <TabsTrigger
+            value="profile"
+            className="text-base p-4 data-[state=active]:bg-slate-950 data-[state=active]:text-white cursor-pointer"
+          >
             Profile
           </TabsTrigger>
-          <TabsTrigger value="biodata-assessment" className="text-base p-3">
+          <TabsTrigger
+            value="biodata-assessment"
+            className="text-base p-4 data-[state=active]:bg-slate-950 data-[state=active]:text-white cursor-pointer"
+          >
             Biodata Assessment
           </TabsTrigger>
         </TabsList>
@@ -159,8 +183,10 @@ export default function ProfileForm() {
           <Card className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white mx-auto">
             <form onSubmit={handleProfileSubmit}>
               <CardHeader>
-                <CardTitle>Profile</CardTitle>
-                <CardDescription>Kelola data profile kamu.</CardDescription>
+                <CardTitle className="text-2xl font-bold">Profile</CardTitle>
+                <CardDescription>
+                  Kelola profile kamu dibawah ini.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-center space-x-4 mt-5">
@@ -180,9 +206,15 @@ export default function ProfileForm() {
                   <Input
                     id="username"
                     name="username"
+                    placeholder="Joko"
                     value={form.username}
                     onChange={handleChange}
                   />
+                  {errorField.username && (
+                    <p className="text-xs text-red-500">
+                      {errorField.username}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -199,6 +231,21 @@ export default function ProfileForm() {
                   </p>
                 </div>
 
+                <div className="space-y-2">
+                  <Label htmlFor="no_hp">No.Hp</Label>
+                  <Input
+                    id="no_hp"
+                    name="no_hp"
+                    placeholder="0812xxx"
+                    value={form.no_hp}
+                    onChange={handleChange}
+                    type="tel"
+                  />
+                  {errorField.no_hp && (
+                    <p className="text-xs text-red-500">{errorField.no_hp}</p>
+                  )}
+                </div>
+
                 {profileError && (
                   <p className="text-sm text-red-500">{profileError}</p>
                 )}
@@ -210,7 +257,7 @@ export default function ProfileForm() {
                   <Button
                     type="submit"
                     disabled={profileLoading}
-                    className="bg-cyan-600 hover:bg-cyan-700"
+                    className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer"
                   >
                     {profileLoading ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -229,9 +276,11 @@ export default function ProfileForm() {
           <Card className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white mx-auto">
             <form onSubmit={handleBiodataSubmit}>
               <CardHeader>
-                <CardTitle>Biodata Assessment</CardTitle>
+                <CardTitle className="text-2xl font-bold">
+                  Biodata Assessment
+                </CardTitle>
                 <CardDescription>
-                  Kelola data biodata assessment kamu.
+                  Kelola biodata assessment kamu dibawah ini.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -301,7 +350,7 @@ export default function ProfileForm() {
                   <Button
                     type="submit"
                     disabled={biodataLoading}
-                    className="bg-cyan-600 hover:bg-cyan-700"
+                    className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer"
                   >
                     {biodataLoading ? (
                       <Loader2 className="h-4 w-4 animate-spin" />

@@ -49,9 +49,22 @@ export const updateMyProfile = async (profileData) => {
     const data = await response.json();
 
     if (!response.ok) {
+      let validationErrors = {};
+
+      if (data.errors && Array.isArray(data.errors)) {
+        data.errors.forEach((err) => {
+          const fieldName = err.path.replace("body.", "");
+
+          validationErrors[fieldName] = err.message;
+        });
+      } else {
+        validationErrors = data.errors || null;
+      }
+
       return {
         success: false,
         error: data.message || "Gagal memperbarui profil.",
+        errors: validationErrors,
       };
     }
 
