@@ -38,9 +38,10 @@ const getTitleFromPathname = (pathname) => {
   if (pathname.startsWith("/history/assessment")) return "Riwayat Assessment";
   if (pathname.startsWith("/assessment")) return "Mulai Assessment";
   if (pathname.startsWith("/dashboard/admin")) return "Admin Dashboard";
-  if (pathname.startsWith("/dashboard/manajemen-user")) return "Manajemen User";
+  if (pathname.startsWith("/dashboard/manajemen-user"))
+    return "Manajemen Pasien";
   if (pathname.startsWith("/dashboard/artikel")) return "Artikel";
-  if (pathname.startsWith("/dashboard/assessment")) return "Assessment";
+  if (pathname.startsWith("/dashboard/assessment")) return "Asesmen";
   return "e-OMC";
 };
 

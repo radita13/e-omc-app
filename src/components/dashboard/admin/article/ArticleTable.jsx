@@ -22,21 +22,12 @@ const formatDateTime = (dateStr) => {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-  }); 
+  });
   return `${formattedDate} • ${formattedTime}`;
 };
 
-export default function ArticleTable({
-  articles,
-  pagination,
-  loading,
-  onDelete,
-}) {
+export default function ArticleTable({ articles, pagination, onDelete }) {
   const router = useRouter();
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
 
   if (articles.length === 0) {
     return (

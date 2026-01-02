@@ -38,9 +38,9 @@ export const StatsSection = ({ stats }) => {
           icon={<FileText className="h-4 w-4 text-muted-foreground" />}
         />
         <StatCard
-          title="Aktivitas Assessment"
+          title="Aktivitas Asesmen"
           value={stats?.submissionsToday ?? 0}
-          description="Asesmen yang masuk hari ini"
+          description="Total jumlah asesmen yang masuk hari ini."
           icon={<Clock className="h-4 w-4 text-muted-foreground" />}
         />
         <StatCard

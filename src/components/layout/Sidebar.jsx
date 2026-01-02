@@ -50,7 +50,7 @@ export default function Sidebar({ onLinkClick }) {
     },
     {
       href: "/dashboard/manajemen-user",
-      label: "Manajemen User",
+      label: "Manajemen Pasien",
       icon: Users,
     },
     {
@@ -60,10 +60,10 @@ export default function Sidebar({ onLinkClick }) {
     },
     {
       href: "/dashboard/assessment",
-      label: "Assessment",
+      label: "Asesmen",
       icon: ScrollText,
-    }
-  ]
+    },
+  ];
 
   const handleLogout = () => {
     if (onLinkClick) onLinkClick();
@@ -76,7 +76,7 @@ export default function Sidebar({ onLinkClick }) {
     router.push(href);
   };
 
-  const navLinks = user?.role === "pasien" ? patientNavLinks : adminNavLinks
+  const navLinks = user?.role === "pasien" ? patientNavLinks : adminNavLinks;
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-64 border-r text-gray-900 flex flex-col justify-between bg-white z-50">

@@ -10,7 +10,7 @@ const GRADE_CONFIG = {
   0: {
     label: "Normal",
     desc: "Kondisi Sehat",
-    color: "green",
+    iconColor: "text-green-500",
     icon: Smile,
     bg: "bg-green-50",
     text: "text-green-600",
@@ -19,7 +19,7 @@ const GRADE_CONFIG = {
   1: {
     label: "Ringan",
     desc: "Gejala Awal",
-    color: "yellow",
+    iconColor: "text-yellow-500",
     icon: AlertCircle,
     bg: "bg-yellow-50",
     text: "text-yellow-700",
@@ -28,7 +28,7 @@ const GRADE_CONFIG = {
   2: {
     label: "Sedang",
     desc: "Butuh Perhatian",
-    color: "orange",
+    iconColor: "text-orange-500",
     icon: AlertTriangle,
     bg: "bg-orange-50",
     text: "text-orange-700",
@@ -37,7 +37,7 @@ const GRADE_CONFIG = {
   3: {
     label: "Berat",
     desc: "Intervensi Medis",
-    color: "red",
+    iconColor: "text-red-500",
     icon: XCircle,
     bg: "bg-red-50",
     text: "text-red-700",
@@ -46,7 +46,7 @@ const GRADE_CONFIG = {
   4: {
     label: "GAWAT",
     desc: "Emergency",
-    color: "rose",
+    iconColor: "text-rose-500",
     icon: Siren,
     bg: "bg-rose-50/60",
     text: "text-rose-900",
@@ -73,7 +73,7 @@ export const ClinicalGradeCard = ({ grade, count }) => {
           {config.label}
         </span>
         <Icon
-          className={`h-5 w-5 ${config.isEmergency ? "text-rose-800 animate-pulse" : `text-${config.color}-500`}`}
+          className={`h-5 w-5 ${config.isEmergency ? "text-rose-800 animate-pulse" : config.iconColor}`}
         />
       </div>
       <div
