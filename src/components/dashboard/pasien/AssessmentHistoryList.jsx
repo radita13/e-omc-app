@@ -107,9 +107,9 @@ export default function AssessmentHistoryList() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Riwayat Assessment Terakhir</CardTitle>
-        <CardDescription>
-          Berikut adalah 3 riwayat assessment terakhir Anda.
+        <CardTitle className="text-xl">Riwayat Asesmen Terakhir</CardTitle>
+        <CardDescription className="text-gray-600 text-base">
+          Berikut adalah 3 riwayat asesmen terakhir Anda.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -126,7 +126,7 @@ export default function AssessmentHistoryList() {
             {history.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={3} className="text-center">
-                  Anda belum memiliki riwayat assessment.
+                  Anda belum memiliki riwayat asesmen.
                 </TableCell>
               </TableRow>
             ) : (

@@ -34,7 +34,6 @@ export default function AssessmentPage() {
     answer(answerData);
   };
 
-  // --- 1. LOADING STATE ---
   if (status === "loading") {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50">
@@ -49,35 +48,44 @@ export default function AssessmentPage() {
     );
   }
 
-  // --- 2. ERROR STATE ---
+  // Hendle error state
   if (status === "error") {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50">
-        <Card className="w-full max-w-md shadow-lg border-red-200 border-l-4">
+      <div className="h-full flex items-center justify-center p-4">
+        <Card className="relative w-full max-w-2xl shadow-lg border-t-4 border-t-red-600">
+          <Button
+            variant="ghost"
+            className="absolute top-4 left-4 hover:bg-gray-500 rounded-full p-5 bg-red-500 cursor-pointer"
+            onClick={() => router.push("/assessment")}
+          >
+            <ArrowLeft className="h-5 w-5 text-white hover:text-black" />
+          </Button>
           <CardHeader>
-            <div className="flex items-center gap-3 text-red-600 mb-2">
-              <AlertTriangle className="h-6 w-6" />
+            <div className="flex flex-col items-center gap-3 text-red-600 mb-2 mt-14">
+              <AlertTriangle className="h-10 w-10" />
               <CardTitle>Gagal Memulai</CardTitle>
             </div>
-            <CardDescription className="text-gray-600">
-              {error || "Terjadi kesalahan saat menghubungi server."}
+            <CardDescription className="text-gray-600 text-base">
+              {error ? (
+                <>
+                  Harap lengkapi biodata asesmen
+                  <strong className="text-gray-800 italic">
+                    &nbsp;nama lengkap, diagnosis &amp; no. rekam medis&nbsp;
+                  </strong>
+                  di profil Anda sebelum memulai assessment.
+                </>
+              ) : (
+                error
+              )}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-3">
-            {/* Tombol Aksi Error */}
             <Button
               variant="default"
-              className="w-full bg-cyan-600 hover:bg-cyan-700"
+              className="w-full bg-red-600 hover:bg-red-700 cursor-pointer"
               onClick={() => router.push("/dashboard/profile")}
             >
               Lengkapi Biodata Sekarang
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={() => router.back()}
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" /> Kembali
             </Button>
           </CardContent>
         </Card>
@@ -85,7 +93,7 @@ export default function AssessmentPage() {
     );
   }
 
-  // --- 3. LAYOUT UTAMA (Idle, Active, Completed) ---
+  // Assessment Area
   return (
     <div className="h-full flex flex-col">
       <main className="grow flex items-center justify-center">
@@ -108,7 +116,7 @@ export default function AssessmentPage() {
                   <CardTitle className="text-2xl sm:text-3xl font-bold text-gray-800">
                     Siap Memulai?
                   </CardTitle>
-                  <CardDescription className="text-lg mt-2 px-4">
+                  <CardDescription className="text-base text-gray-600 mt-2 px-4">
                     Pastikan Anda dalam kondisi tenang. Jawablah setiap
                     pertanyaan sesuai kondisi yang Anda rasakan saat ini.
                   </CardDescription>
@@ -163,7 +171,7 @@ export default function AssessmentPage() {
             </div>
           )}
 
-          {/* C. STATUS COMPLETED (Hasil Akhir) */}
+          {/* C. (Hasil Akhir) */}
           {status === "completed" && finalResult && (
             <div className="w-full">
               <AssessmentResult

@@ -26,7 +26,7 @@ export default function Sidebar({ onLinkClick }) {
   const patientNavLinks = [
     {
       href: "/dashboard/profile",
-      label: "Dashboard",
+      label: "Pasien Dashboard",
       icon: LayoutDashboard,
     },
     {
@@ -36,7 +36,7 @@ export default function Sidebar({ onLinkClick }) {
     },
     {
       href: "/assessment",
-      label: "Mulai Assessment",
+      label: "Mulai Asesmen",
       icon: FileText,
     },
   ];

@@ -171,10 +171,10 @@ export default function ProfileForm() {
             Profile
           </TabsTrigger>
           <TabsTrigger
-            value="biodata-assessment"
+            value="biodata-asesmen"
             className="text-base p-4 data-[state=active]:bg-slate-950 data-[state=active]:text-white cursor-pointer"
           >
-            Biodata Assessment
+            Biodata Asesmen
           </TabsTrigger>
         </TabsList>
 
@@ -272,15 +272,15 @@ export default function ProfileForm() {
         </TabsContent>
 
         {/* Biodata Assessment Section */}
-        <TabsContent value="biodata-assessment">
+        <TabsContent value="biodata-asesmen">
           <Card className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white mx-auto">
             <form onSubmit={handleBiodataSubmit}>
               <CardHeader>
                 <CardTitle className="text-2xl font-bold">
-                  Biodata Assessment
+                  Biodata Asesmen
                 </CardTitle>
                 <CardDescription>
-                  Kelola biodata assessment kamu dibawah ini.
+                  Kelola biodata asesmen kamu dibawah ini.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">

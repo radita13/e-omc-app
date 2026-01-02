@@ -45,11 +45,10 @@ export default async function AssessmentSelectionPage() {
 
   return (
     <div className="bg-linear-to-b from-slate-50 to-white rounded-[3rem] pb-10">
-      {/* --- HERO SECTION --- */}
       <div className="bg-cyan-900 py-16 text-white text-center rounded-[3rem] shadow-lg mb-12 px-6">
         <div className="container mx-auto max-w-3xl">
           <div className="inline-flex items-center gap-2 bg-cyan-800/50 px-4 py-1.5 rounded-full text-cyan-100 text-sm font-medium mb-6 border border-cyan-700">
-            <Activity className="w-4 h-4" /> E-Assessment
+            <Activity className="w-4 h-4" /> E-OMc
           </div>
           <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight leading-tight">
             Asesmen Mandiri Pasien
@@ -61,7 +60,6 @@ export default async function AssessmentSelectionPage() {
         </div>
       </div>
 
-      {/* --- CONTENT SECTION --- */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3 mb-8">
           <div className="h-8 w-1 bg-cyan-600 rounded-full"></div>
@@ -70,7 +68,6 @@ export default async function AssessmentSelectionPage() {
           </h2>
         </div>
 
-        {/* Grid Card */}
         <div className="grid grid-cols-1 gap-8">
           {publishedTemplates.length === 0 ? (
             <div className="col-span-full flex flex-col items-center justify-center py-16 text-center border-2 border-dashed border-gray-200 rounded-xl bg-gray-50">
@@ -88,7 +85,6 @@ export default async function AssessmentSelectionPage() {
                 key={template.id}
                 className="group relative flex flex-col justify-between border-gray-200 hover:border-cyan-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden bg-white"
               >
-                {/* Hiasan Atas */}
                 <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-cyan-500 to-blue-600"></div>
 
                 <CardHeader className="pb-3">

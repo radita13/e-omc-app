@@ -34,9 +34,9 @@ import { useState } from "react";
 
 // Fungsi helper untuk mengubah pathname menjadi Judul Halaman
 const getTitleFromPathname = (pathname) => {
-  if (pathname.startsWith("/dashboard/profile")) return "Dashboard";
-  if (pathname.startsWith("/history/assessment")) return "Riwayat Assessment";
-  if (pathname.startsWith("/assessment")) return "Mulai Assessment";
+  if (pathname.startsWith("/dashboard/profile")) return "Pasien Dashboard";
+  if (pathname.startsWith("/history/assessment")) return "Riwayat Asesmen";
+  if (pathname.startsWith("/assessment")) return "Mulai Asesmen";
   if (pathname.startsWith("/dashboard/admin")) return "Admin Dashboard";
   if (pathname.startsWith("/dashboard/manajemen-user"))
     return "Manajemen Pasien";
@@ -105,7 +105,7 @@ export default function DashboardHeader({ onMenuClick }) {
 
               <DropdownMenuItem onClick={() => router.push("/assessment/1")}>
                 <FileText className="mr-2 h-4 w-4" />
-                <span className="cursor-pointer">Assessment</span>
+                <span className="cursor-pointer">Asesmen</span>
               </DropdownMenuItem>
 
               <DropdownMenuItem onClick={() => router.push("/contact")}>
