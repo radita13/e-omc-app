@@ -27,14 +27,14 @@ export default function CtaSection() {
         </h2>
         <p className="text-lg text-cyan-100 max-w-2xl mx-auto mb-8">
           Ambil langkah pertama untuk kenyamanan Anda. Mulai asesmen mandiri
-          Anda hari ini dan dapatkan panduan perawatan yang tepat.
+          Anda sekarang dan dapatkan panduan perawatan yang tepat.
         </p>
         <Button
           size="lg"
           className="bg-white text-cyan-800 hover:bg-gray-100 cursor-pointer"
           onClick={handleStart}
         >
-          Mulai Assessment Sekarang
+          Mulai Asesmen
         </Button>
       </div>
     </section>
