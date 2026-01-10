@@ -123,7 +123,7 @@ export default function AssessmentResult({
           {messageData.title}
         </CardTitle>
         <CardDescription>
-          Assessment Selesai. Berikut adalah hasil analisis kondisi Anda.
+          Asesmen Selesai. Berikut adalah hasil analisis kondisi Anda.
         </CardDescription>
       </CardHeader>
 
@@ -173,10 +173,10 @@ export default function AssessmentResult({
             <br />
             <span className="font-bold text-yellow-600 text-lg">PENTING</span>
             <br /> Hasil asesmen ini adalah alat bantu skrining awal berdasarkan
-            input Anda pada assessment, bukan pengganti diagnosa medis
-            profesional. Segera ke puskesmas atau RS terdekat konsultasikan
-            dengan dokter jika gejala tidak membaik atau Anda merasa khawatir,
-            terlepas dari hasil grade yang muncul.
+            input Anda pada asesmen, bukan pengganti diagnosa medis profesional.
+            Segera ke puskesmas atau RS terdekat konsultasikan dengan dokter
+            jika gejala tidak membaik atau Anda merasa khawatir, terlepas dari
+            hasil grade yang muncul.
           </p>
         </div>
       </CardContent>
@@ -196,7 +196,7 @@ export default function AssessmentResult({
               onClick={onRestart}
               className={`w-full cursor-pointer${grade >= 3 ? "bg-red-600 hover:bg-red-700" : ""}`}
             >
-              Ulangi Assessment
+              Ulangi Asesmen
             </Button>
             <Button
               variant="outline"
