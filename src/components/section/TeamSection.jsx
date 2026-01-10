@@ -27,8 +27,8 @@ export default function TeamSection() {
           Tim PMP
         </h2>
         <p className="text-gray-600 mb-12 max-w-2xl mx-auto">
-          Peningkatan Kompetensi Caring dengan e-OMC (Elektronik - Oral
-          Mukositis) sebagai deteksi dini oral mukositis pasien kanker
+          Peningkatan Kompetensi Caring dengan e-OMc (Elektronik - Oral
+          Mukositis Care) sebagai deteksi dini oral mukositis pasien kanker
         </p>
 
         {/* Grid */}

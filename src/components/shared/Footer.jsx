@@ -52,7 +52,7 @@ export default function Footer() {
                   href={getAssessmentLink()}
                   className="text-gray-600 hover:underline"
                 >
-                  Assessment
+                  Asesmen
                 </Link>
               </li>
               <li>

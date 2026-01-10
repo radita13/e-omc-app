@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
-import { Check } from "lucide-react";
 import LogoPartnerLoop from "../shared/LogoPartnerLoop";
 
 export default function HeroSection() {
@@ -42,7 +41,7 @@ export default function HeroSection() {
               className="bg-cyan-600 hover:bg-cyan-700 rounded-full cursor-pointer"
               onClick={handleStart}
             >
-              Mulai Assessment
+              Mulai Asesmen
             </Button>
           </div>
           {/* <ul className="mt-6 space-y-2 text-gray-600">

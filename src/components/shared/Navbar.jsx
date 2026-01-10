@@ -32,7 +32,7 @@ import {
 // Tautan Navigasi Utama
 const navLinks = [
   { href: "/", label: "Beranda" },
-  { href: "/assessment", label: "Assessment" },
+  { href: "/assessment", label: "Asesmen" },
   { href: "/contact", label: "Kontak" },
 ];
 
