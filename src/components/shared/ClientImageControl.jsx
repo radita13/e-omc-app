@@ -61,15 +61,17 @@ export default function ClientImageControl({ src, alt }) {
             </div>
 
             <TransformComponent wrapperClass="w-full">
-              <div className="w-full min-h-80 flex items-center justify-center bg-gray-100">
+              <div className="w-full flex items-center justify-center bg-gray-50">
                 <Image
                   src={src}
                   alt={alt}
-                  width={1200}
-                  height={800}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
                   style={{
-                    maxWidth: "100%",
+                    width: "100%",
                     height: "auto",
+                    maxWidth: "100%",
                     display: "block",
                     userSelect: "none",
                     pointerEvents: "none",
