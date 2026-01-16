@@ -1,6 +1,12 @@
 import Link from "next/link";
-import { ArrowRight, AlertTriangle } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { ArrowRight, AlertTriangle, Image, Video } from "lucide-react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import ClientImage from "@/components/shared/ClientImage";
 
@@ -24,7 +30,6 @@ export default function PetugasArticleCard({ articles, error }) {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
         {articles.length === 0 && !error && (
           <p className="col-span-3 text-center text-gray-500">
             Belum ada artikel yang dipublikasikan untuk petugas.
@@ -62,13 +67,15 @@ export default function PetugasArticleCard({ articles, error }) {
                       variant="secondary"
                       className="bg-blue-500 text-white dark:bg-blue-600"
                     >
-                      🖼 {article.images.length} Gambar
+                      <Image className="h-4 w-4" alt="" /> {article.images.length}
+                      &nbsp;Gambar
                     </Badge>
                   )}
 
                   {hasVideo && (
                     <Badge variant="destructive" className="text-white">
-                      🎥 Video
+                      <Video className="h-4 w-4" alt="" />
+                      &nbsp;Video
                     </Badge>
                   )}
                 </div>
