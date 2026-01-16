@@ -9,7 +9,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Image, Video } from "lucide-react";
 import ClientImage from "@/components/shared/ClientImage";
 
 export default function PatientArticleCard({ article }) {
@@ -42,14 +42,16 @@ export default function PatientArticleCard({ article }) {
               variant="secondary"
               className="bg-blue-500 text-white dark:bg-blue-600"
             >
-              🖼 {article.images.length} Gambar
+              <Image className="h-4 w-4" alt="" /> {article.images.length}
+              &nbsp;Gambar
             </Badge>
           )}
 
           {/* Video badge */}
           {hasVideo && (
             <Badge variant="destructive" className="text-white">
-              🎥 Video
+              <Video className="h-4 w-4" alt="" />
+              &nbsp;Video
             </Badge>
           )}
         </div>
