@@ -202,13 +202,16 @@ export default function ProfileForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="name">Username</Label>
+                  <Label htmlFor="username">
+                    Username
+                  </Label>
                   <Input
                     id="username"
                     name="username"
                     placeholder="Joko"
                     value={form.username}
                     onChange={handleChange}
+                    autoComplete="username"
                   />
                   {errorField.username && (
                     <p className="text-xs text-red-500">
@@ -218,13 +221,16 @@ export default function ProfileForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">
+                    Email
+                  </Label>
                   <Input
                     id="email"
                     name="email"
                     value={form.email}
                     readOnly
                     disabled
+                    autoComplete="email"
                   />
                   <p className="text-xs text-gray-500">
                     Email tidak dapat diubah.
@@ -240,6 +246,7 @@ export default function ProfileForm() {
                     value={form.no_hp}
                     onChange={handleChange}
                     type="tel"
+                    autoComplete="tel"
                   />
                   {errorField.no_hp && (
                     <p className="text-xs text-red-500">{errorField.no_hp}</p>
@@ -292,6 +299,7 @@ export default function ProfileForm() {
                     value={form.fullName}
                     onChange={handleChange}
                     placeholder="Joko Prasetyo"
+                    autoComplete="name"
                   />
                 </div>
 
@@ -303,6 +311,7 @@ export default function ProfileForm() {
                     value={form.medicalRecordNumber}
                     onChange={handleChange}
                     placeholder="Contoh: RM123456, RM-2025-001234, dsb."
+                    autoComplete="off"
                   />
                 </div>
 
@@ -314,6 +323,7 @@ export default function ProfileForm() {
                     value={form.diagnosis}
                     onChange={handleChange}
                     placeholder="Contoh: Oral Mucositis Grade II (komplikasi terapi) + kanker orofaring, Kanker Paru-paru, dsb."
+                    autoComplete="off"
                   />
                 </div>
 
@@ -325,6 +335,7 @@ export default function ProfileForm() {
                     value={form.chemoType}
                     onChange={handleChange}
                     placeholder="Contoh: 5-FU + Cisplatin (CF regimen), Docetaxel + Cisplatin, dsb."
+                    autoComplete="off"
                   />
                 </div>
 
@@ -336,6 +347,7 @@ export default function ProfileForm() {
                     value={form.radioType}
                     onChange={handleChange}
                     placeholder="Contoh: VMAT 66 Gy / 33 fraksi, 3D-CRT 60 Gy / 30 fraksi, dsb."
+                    autoComplete="off"
                   />
                 </div>
 
