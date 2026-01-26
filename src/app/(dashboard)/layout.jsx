@@ -3,6 +3,7 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTokenExpiry } from "@/hooks/auth/useTokenExpiry";
+import { useRoleBasedRouteProtection } from "@/hooks/auth/useRoleBasedRouteProtection";
 import Sidebar from "@/components/layout/Sidebar";
 import DashboardHeader from "@/components/shared/DashboardHeader";
 import {
@@ -20,6 +21,9 @@ export default function AppLayout({ children }) {
 
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
+  // Setup role-based route protection
+  useRoleBasedRouteProtection();
+
   useEffect(() => {
     if (loading) return;
     if (!isAuthenticated) {
@@ -27,10 +31,9 @@ export default function AppLayout({ children }) {
     }
   }, [isAuthenticated, loading, router]);
 
-  // Setup token expiry check dengan hook
   useTokenExpiry({
-    checkInterval: 30000, 
-    showNotification: true, 
+    checkInterval: 30000,
+    showNotification: true,
   });
 
   if (loading) {

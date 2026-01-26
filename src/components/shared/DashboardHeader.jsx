@@ -103,10 +103,12 @@ export default function DashboardHeader({ onMenuClick }) {
                 <span className="cursor-pointer">Beranda</span>
               </DropdownMenuItem>
 
-              <DropdownMenuItem onClick={() => router.push("/assessment/1")}>
-                <FileText className="mr-2 h-4 w-4" />
-                <span className="cursor-pointer">Asesmen</span>
-              </DropdownMenuItem>
+              {user?.role === "pasien" && (
+                <DropdownMenuItem onClick={() => router.push("/assessment/1")}>
+                  <FileText className="mr-2 h-4 w-4" />
+                  <span className="cursor-pointer">Asesmen</span>
+                </DropdownMenuItem>
+              )}
 
               <DropdownMenuItem onClick={() => router.push("/contact")}>
                 <Phone className="mr-2 h-4 w-4" />
@@ -148,18 +150,21 @@ export default function DashboardHeader({ onMenuClick }) {
             <DropdownMenuSeparator />
 
             {/* Dashboard */}
-            <DropdownMenuGroup>
-              <DropdownMenuItem
-                onClick={() => router.push("/dashboard/profile")}
-              >
-                <LayoutDashboard className="mr-2 h-4 w-4" />
-                <span className="cursor-pointer">Dashboard</span>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+            {!pathname.startsWith("/dashboard") &&
+              !pathname.startsWith("/history") && (
+                <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    onClick={() => router.push("/dashboard/profile")}
+                  >
+                    <LayoutDashboard className="mr-2 h-4 w-4" />
+                    <span className="cursor-pointer">Dashboard</span>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              )}
 
-            <DropdownMenuItem onClick={handleLogout} className="text-red-500">
-              <LogOut className="mr-2 h-4 w-4" />
-              <span className="cursor-pointer">Logout</span>
+            <DropdownMenuItem onClick={handleLogout}>
+              <LogOut className="mr-2 h-4 w-4 text-red-500" />
+              <span className="cursor-pointer text-red-500">Logout</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
