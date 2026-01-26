@@ -2,8 +2,9 @@
 
 import { create } from "zustand";
 import { loginUser } from "@/services/auth.Service";
+import { isTokenExpired, getTokenTimeRemaining } from "@/lib/tokenUtils";
 
-export const useAuthStore = create((set) => ({
+export const useAuthStore = create((set, get) => ({
   user: null,
   token: null,
   isAuthenticated: false,
@@ -41,6 +42,20 @@ export const useAuthStore = create((set) => ({
       const storedUser = localStorage.getItem("omc_user");
 
       if (storedToken && storedUser && storedUser !== "undefined") {
+        // Cek apakah token sudah expired
+        if (isTokenExpired(storedToken)) {
+          console.warn("Token sudah expired");
+          localStorage.removeItem("omc_token");
+          localStorage.removeItem("omc_user");
+          set({
+            user: null,
+            token: null,
+            isAuthenticated: false,
+            loading: false,
+          });
+          return;
+        }
+
         set({
           token: storedToken,
           user: JSON.parse(storedUser),
@@ -53,6 +68,34 @@ export const useAuthStore = create((set) => ({
       localStorage.removeItem("omc_user");
     }
     set({ loading: false });
+  },
+
+  /**
+   * Cek apakah token masih valid
+   * @returns {boolean} - true jika token valid
+   */
+  isTokenValid: () => {
+    const { token } = get();
+    if (!token) return false;
+    return !isTokenExpired(token);
+  },
+
+  /**
+   * Ambil sisa waktu token (dalam menit)
+   */
+  getTokenTimeRemaining: () => {
+    const { token } = get();
+    if (!token) return 0;
+    return getTokenTimeRemaining(token);
+  },
+
+  /**
+   * Handle token invalid/expired - logout otomatis
+   */
+  handleTokenExpired: () => {
+    const { logout } = get();
+    console.warn("Token expired, logging out...");
+    logout();
   },
 
   setUser: (userData) => {

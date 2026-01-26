@@ -37,11 +37,11 @@ export default function ArticleTable({ articles, pagination, onDelete }) {
             <TableRow>
               <TableHead className="w-[50px] text-center">No</TableHead>
               <TableHead>Thumbnail</TableHead>
-              <TableHead>Judul</TableHead>
-              <TableHead>Kategori</TableHead>
+              <TableHead>Title</TableHead>
+              <TableHead>Category</TableHead>
               <TableHead>Create</TableHead>
               <TableHead>Update</TableHead>
-              <TableHead className="text-center w-[200px]">Aksi</TableHead>
+              <TableHead className="text-center w-[200px]">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

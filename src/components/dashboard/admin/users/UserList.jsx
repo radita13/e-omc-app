@@ -108,12 +108,12 @@ export default function UserList() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>No</TableHead>
-                    <TableHead>Nama</TableHead>
+                    <TableHead>Username</TableHead>
                     <TableHead>Email</TableHead>
                     <TableHead>No.Hp</TableHead>
                     <TableHead>Role</TableHead>
-                    <TableHead>Dibuat Pada</TableHead>
-                    <TableHead className="text-right">Aksi</TableHead>
+                    <TableHead>Create</TableHead>
+                    <TableHead className="text-right">Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>

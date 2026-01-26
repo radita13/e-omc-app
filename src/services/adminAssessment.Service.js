@@ -9,7 +9,6 @@ const getAuthHeader = () => {
 
 // Get all assessment templates (admin)
 export const getAllTemplates = async () => {
-  console.log("1. Fungsi getAllTemplates terpanggil!");
   try {
     const res = await fetch(`${API_URL}/admin/assessments`, {
       method: "GET",

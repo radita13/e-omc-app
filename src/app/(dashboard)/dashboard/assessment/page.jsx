@@ -219,7 +219,7 @@ export default function AdminAssessmentList() {
           className="cursor-pointer"
           onClick={() => router.push("/dashboard/assessment/create")}
         >
-          + Buat Baru
+          + Buat Asesmen
         </Button>
       </div>
 
@@ -228,10 +228,10 @@ export default function AdminAssessmentList() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[50px] text-center">No</TableHead>
-              <TableHead>Judul</TableHead>
+              <TableHead>Title</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead className="w-[200px]">Tanggal</TableHead>
-              <TableHead className="text-right pr-5">Aksi</TableHead>
+              <TableHead className="w-[200px]">Create</TableHead>
+              <TableHead className="text-right pr-5">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

@@ -2,6 +2,7 @@
 import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useTokenExpiry } from "@/hooks/auth/useTokenExpiry";
 import Sidebar from "@/components/layout/Sidebar";
 import DashboardHeader from "@/components/shared/DashboardHeader";
 import {
@@ -25,6 +26,12 @@ export default function AppLayout({ children }) {
       router.replace("/auth/login");
     }
   }, [isAuthenticated, loading, router]);
+
+  // Setup token expiry check dengan hook
+  useTokenExpiry({
+    checkInterval: 30000, 
+    showNotification: true, 
+  });
 
   if (loading) {
     return (
