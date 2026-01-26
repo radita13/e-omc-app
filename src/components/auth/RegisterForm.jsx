@@ -103,10 +103,12 @@ export default function RegisterForm() {
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="username">Username</Label>
               <Input
+                id="username"
                 name="username"
                 type="text"
                 placeholder="Joko"
                 onChange={handleChange}
+                autoComplete="username"
                 required
               />
               {errors.username && (
@@ -116,10 +118,12 @@ export default function RegisterForm() {
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">Email</Label>
               <Input
+                id="email"
                 name="email"
                 type="email"
                 placeholder="joko@gmail.com"
                 onChange={handleChange}
+                autoComplete="email"
                 required
               />
               {errors.email && (
@@ -129,6 +133,7 @@ export default function RegisterForm() {
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="no_hp">No.Hp</Label>
               <Input
+                id="no_hp"
                 name="no_hp"
                 type="tel"
                 pattern="[0-9]*"
@@ -147,6 +152,7 @@ export default function RegisterForm() {
 
               <div className="relative">
                 <Input
+                  id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="********"

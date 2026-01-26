@@ -122,6 +122,7 @@ export default function LoginForm() {
               <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Input
+                  id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="********"
