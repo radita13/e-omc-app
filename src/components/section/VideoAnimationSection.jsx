@@ -15,7 +15,7 @@ export default function VideoSection() {
 
         <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
           <iframe
-            src="https://player.cloudinary.com/embed/?cloud_name=dakh6bkz8&public_id=ANIMASI_REVISI2_fl7vgd&profile=cld-default"
+            src="https://player.cloudinary.com/embed/?cloud_name=dakh6bkz8&public_id=Video_Animasi_V2_psertk"
             title="Video Animasi e-OMC"
             className="absolute top-0 left-0 w-full h-full rounded-xl shadow-lg border border-gray-200"
             border="0"
