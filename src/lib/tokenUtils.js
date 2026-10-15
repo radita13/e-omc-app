@@ -1,8 +1,16 @@
-import { jwtDecode } from "jwt-decode";
-
 export const decodeToken = (token) => {
+  if (!token || typeof token !== "string") return null;
   try {
-    return jwtDecode(token);
+    const base64Url = token.split(".")[1];
+    if (!base64Url) return null;
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+        .join("")
+    );
+    return JSON.parse(jsonPayload);
   } catch (error) {
     console.error("Error decoding token:", error);
     return null;
@@ -44,23 +52,4 @@ export const getTokenTimeRemaining = (token) => {
     console.error("Error calculating token time remaining:", error);
     return 0;
   }
-};
-
-/**
- * Setup interceptor untuk handle token expired
- * @param {Function} logoutCallback - Function yang dipanggil saat logout
- */
-export const setupTokenInterceptor = (logoutCallback) => {
-  const originalFetch = window.fetch;
-
-  window.fetch = async (...args) => {
-    const response = await originalFetch.apply(window, args);
-
-    if (response.status === 401) {
-      console.warn("Token expired or unauthorized");
-      logoutCallback?.();
-    }
-
-    return response;
-  };
 };

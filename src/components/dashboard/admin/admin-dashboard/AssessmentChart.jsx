@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   Card,
@@ -28,11 +27,7 @@ export function AssessmentChart({ data = [] }) {
   const total = data.reduce((acc, curr) => acc + curr.count, 0);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-    >
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
       <Card>
         <CardHeader>
           <CardTitle>Linimasa Asesmen Selesai</CardTitle>
@@ -99,6 +94,6 @@ export function AssessmentChart({ data = [] }) {
           </div>
         </CardFooter>
       </Card>
-    </motion.div>
+    </div>
   );
 }

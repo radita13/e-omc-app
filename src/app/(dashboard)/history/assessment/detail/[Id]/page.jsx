@@ -27,9 +27,15 @@ export default function AssessmentDetail() {
         if (response.success) {
           if (Array.isArray(response.data)) {
             const foundData = response.data.find((item) => item.id == Id);
-            setDetailData(foundData);
-          } else {
+            if (!foundData) {
+              setError("Data riwayat asesmen tidak ditemukan.");
+            } else {
+              setDetailData(foundData);
+            }
+          } else if (response.data) {
             setDetailData(response.data);
+          } else {
+            setError("Data riwayat asesmen tidak ditemukan.");
           }
         } else {
           setError(response.error || "Gagal memuat detail assessment.");

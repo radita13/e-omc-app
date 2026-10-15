@@ -68,6 +68,7 @@ export default function DashboardHeader({ onMenuClick }) {
           size="icon"
           className="md:hidden hover:bg-gray-300"
           onClick={onMenuClick}
+          aria-label="Buka menu navigasi"
         >
           <Menu className="h-6 w-6" />
         </Button>
@@ -79,15 +80,19 @@ export default function DashboardHeader({ onMenuClick }) {
       <div className="flex items-center gap-4 ">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <div className="border rounded-full border-gray-900 cursor-pointer">
+            <button
+              type="button"
+              aria-label={`Menu profil ${user?.username || "pengguna"}`}
+              className="border rounded-full border-gray-900 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+            >
               <Image
                 src={`https://api.dicebear.com/7.x/initials/svg?seed=${user?.username || "U"}`}
-                alt="Avatar"
+                alt={`Avatar ${user?.username || "pengguna"}`}
                 width={40}
                 height={40}
                 className="w-10 h-10 rounded-full p-0.5"
               />
-            </div>
+            </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-64">
             <DropdownMenuLabel>

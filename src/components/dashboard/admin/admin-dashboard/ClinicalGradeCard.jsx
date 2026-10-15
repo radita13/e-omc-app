@@ -10,47 +10,42 @@ const GRADE_CONFIG = {
   0: {
     label: "Normal",
     desc: "Kondisi Sehat",
-    iconColor: "text-green-500",
+    iconColor: "text-emerald-600",
+    iconBg: "bg-emerald-50",
+    badgeBg: "bg-emerald-100/70 text-emerald-800 border-emerald-200",
     icon: Smile,
-    bg: "bg-green-50",
-    text: "text-green-600",
-    border: "border-l-green-500",
   },
   1: {
     label: "Ringan",
     desc: "Gejala Awal",
-    iconColor: "text-yellow-500",
+    iconColor: "text-amber-600",
+    iconBg: "bg-amber-50",
+    badgeBg: "bg-amber-100/70 text-amber-900 border-amber-200",
     icon: AlertCircle,
-    bg: "bg-yellow-50",
-    text: "text-yellow-700",
-    border: "border-l-yellow-400",
   },
   2: {
     label: "Sedang",
     desc: "Butuh Perhatian",
-    iconColor: "text-orange-500",
+    iconColor: "text-orange-600",
+    iconBg: "bg-orange-50",
+    badgeBg: "bg-orange-100/70 text-orange-900 border-orange-200",
     icon: AlertTriangle,
-    bg: "bg-orange-50",
-    text: "text-orange-700",
-    border: "border-l-orange-500",
   },
   3: {
     label: "Berat",
     desc: "Intervensi Medis",
-    iconColor: "text-red-500",
+    iconColor: "text-rose-600",
+    iconBg: "bg-rose-50",
+    badgeBg: "bg-rose-100/70 text-rose-900 border-rose-200",
     icon: XCircle,
-    bg: "bg-red-50",
-    text: "text-red-700",
-    border: "border-l-red-500",
   },
   4: {
     label: "GAWAT",
     desc: "Emergency",
-    iconColor: "text-rose-500",
+    iconColor: "text-rose-700",
+    iconBg: "bg-rose-100",
+    badgeBg: "bg-rose-800 text-white border-rose-800",
     icon: Siren,
-    bg: "bg-rose-50/60",
-    text: "text-rose-900",
-    border: "border-l-rose-800",
     isEmergency: true,
   },
 };
@@ -64,25 +59,41 @@ export const ClinicalGradeCard = ({ grade, count }) => {
 
   return (
     <div
-      className={`rounded-xl border bg-white p-5 shadow-sm border-l-4 ${config.border} ${config.isEmergency ? config.bg : ""}`}
+      className={`rounded-xl border p-5 shadow-xs transition-all ${
+        config.isEmergency
+          ? "border-rose-300 bg-rose-50/50"
+          : "border-gray-200 bg-white"
+      }`}
     >
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-3">
         <span
-          className={`text-xs font-bold px-2 py-1 rounded uppercase ${config.isEmergency ? "bg-rose-800 text-white" : `${config.bg} ${config.text}`}`}
+          className={`text-xs font-semibold px-2.5 py-1 rounded-md uppercase border ${config.badgeBg}`}
         >
           {config.label}
         </span>
-        <Icon
-          className={`h-5 w-5 ${config.isEmergency ? "text-rose-800 animate-pulse" : config.iconColor}`}
-        />
+        <div className={`p-2 rounded-lg ${config.iconBg}`}>
+          <Icon
+            className={`h-4.5 w-4.5 ${
+              config.isEmergency
+                ? "text-rose-800 animate-pulse"
+                : config.iconColor
+            }`}
+          />
+        </div>
       </div>
       <div
-        className={`font-bold text-gray-800 ${config.isEmergency ? "text-3xl" : "text-2xl"}`}
+        className={`font-bold tracking-tight text-gray-900 ${
+          config.isEmergency ? "text-3xl" : "text-2xl"
+        }`}
       >
         {count}
       </div>
       <p
-        className={`text-xs mt-1 ${config.isEmergency ? "text-rose-700 font-semibold" : "text-gray-500"}`}
+        className={`text-xs mt-1.5 ${
+          config.isEmergency
+            ? "text-rose-800 font-semibold"
+            : "text-gray-500 font-medium"
+        }`}
       >
         Grade {grade}: {config.desc}
       </p>

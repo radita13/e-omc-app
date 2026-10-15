@@ -100,7 +100,23 @@ export default function Navbar() {
         </DropdownMenu>
       );
     } else {
-      return <Button onClick={() => router.push("/auth/login")}>Login</Button>;
+      return (
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            onClick={() => router.push("/auth/login")}
+            className="cursor-pointer font-medium"
+          >
+            Masuk
+          </Button>
+          <Button
+            onClick={() => router.push("/auth/register")}
+            className="bg-cyan-600 hover:bg-cyan-700 text-white cursor-pointer font-medium shadow-xs"
+          >
+            Daftar
+          </Button>
+        </div>
+      );
     }
   };
 
@@ -179,8 +195,13 @@ export default function Navbar() {
         <div className="md:hidden">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="cursor-pointer">
-                <Menu className="h-11 w-11" />
+              <Button
+                variant="ghost"
+                size="icon"
+                className="cursor-pointer"
+                aria-label="Buka menu navigasi"
+              >
+                <Menu className="h-6 w-6" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
@@ -241,9 +262,20 @@ export default function Navbar() {
                     </DropdownMenuItem>
                   </>
                 ) : (
-                  <DropdownMenuItem onClick={() => router.push("/auth/login")}>
-                    Login
-                  </DropdownMenuItem>
+                  <>
+                    <DropdownMenuItem
+                      onClick={() => router.push("/auth/login")}
+                      className="cursor-pointer"
+                    >
+                      Masuk
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => router.push("/auth/register")}
+                      className="cursor-pointer text-cyan-700 font-medium"
+                    >
+                      Daftar
+                    </DropdownMenuItem>
+                  </>
                 )}
               </DropdownMenuGroup>
             </DropdownMenuContent>

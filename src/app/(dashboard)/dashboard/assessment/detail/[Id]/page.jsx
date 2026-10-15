@@ -180,7 +180,7 @@ export default function AssessmentDetailPage() {
 
         <div className="grid gap-6">
           {template.questions?.map((q, index) => (
-            <Card key={q.id} className="border-l-4 border-l-blue-500 shadow-sm">
+            <Card key={q.id} className="border border-gray-200 shadow-xs">
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-center mb-1">
                   <Badge variant="outline">Q{index + 1}</Badge>

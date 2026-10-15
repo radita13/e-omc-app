@@ -3,12 +3,14 @@
 import { create } from "zustand";
 import { startAssessment, submitAnswer } from "@/services/assessment.Service";
 
-// State yang akan disimpan selama assessment
 const initialState = {
   submissionId: null,
   currentQuestion: null,
+  currentStep: 1,
+  history: [],
+  answers: {},
   finalResult: null,
-  status: "idle", // 'idle', 'loading', 'active', 'completed', 'error'
+  status: "idle",
   error: null,
 };
 
@@ -21,6 +23,9 @@ export const useAssessmentStore = create((set, get) => ({
       set({
         submissionId: result.data.submissionId,
         currentQuestion: result.data.question,
+        currentStep: 1,
+        history: [],
+        answers: {},
         status: "active",
         finalResult: null,
       });
@@ -29,28 +34,40 @@ export const useAssessmentStore = create((set, get) => ({
     }
   },
 
-  /**
-   * (Action) Mengirim jawaban dan mendapatkan pertanyaan/hasil berikutnya
-   */
   answer: async (answerData) => {
-    const { submissionId } = get(); // Ambil submissionId saat ini dari state
-    if (!submissionId || get().status !== "active") return; // Jangan lakukan apa-apa jika tidak aktif
+    const { submissionId, currentQuestion, currentStep, history, answers } =
+      get();
+    if (!submissionId || get().status !== "active") return;
 
     set({ status: "loading", error: null });
     const result = await submitAnswer(submissionId, answerData);
 
     if (result.success) {
+      const updatedAnswers = {
+        ...answers,
+        [answerData.questionId]: answerData,
+      };
+
       if (result.status === "continue") {
-        // Assessment berlanjut
         set({
+          history: [
+            ...history,
+            { question: currentQuestion, answerData, step: currentStep || 1 },
+          ],
+          answers: updatedAnswers,
           currentQuestion: result.data.question,
+          currentStep: (currentStep || 1) + 1,
           status: "active",
         });
       } else if (result.status === "completed") {
-        // Assessment selesai
         set({
+          history: [
+            ...history,
+            { question: currentQuestion, answerData, step: currentStep || 1 },
+          ],
+          answers: updatedAnswers,
           currentQuestion: null,
-          finalResult: result.data, // Simpan hasil akhir
+          finalResult: result.data,
           status: "completed",
         });
       }
@@ -59,9 +76,21 @@ export const useAssessmentStore = create((set, get) => ({
     }
   },
 
-  /**
-   * (Action) Mereset state saat user meninggalkan halaman
-   */
+  goBack: () => {
+    const { history } = get();
+    if (!history || history.length === 0) return;
+
+    const previousItem = history[history.length - 1];
+    const newHistory = history.slice(0, -1);
+
+    set({
+      history: newHistory,
+      currentQuestion: previousItem.question,
+      currentStep: previousItem.step,
+      status: "active",
+    });
+  },
+
   reset: () => {
     set(initialState);
   },

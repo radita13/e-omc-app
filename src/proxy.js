@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export function middleware(request) {
+export function proxy(request) {
   const pathname = request.nextUrl.pathname;
   const userCookie = request.cookies.get("omc_user")?.value;
   const tokenCookie = request.cookies.get("omc_token")?.value;

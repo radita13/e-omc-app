@@ -125,7 +125,7 @@ export default function AssessmentHistoryList() {
           <TableBody>
             {history.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={3} className="text-center">
+                <TableCell colSpan={4} className="text-center py-8 text-gray-500">
                   Anda belum memiliki riwayat asesmen.
                 </TableCell>
               </TableRow>

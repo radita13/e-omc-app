@@ -287,7 +287,7 @@ export default function EditAssessmentPage() {
         </div>
 
         {formData.questions.map((q, qIdx) => (
-          <Card key={qIdx} className="border-l-4 border-l-blue-500">
+          <Card key={qIdx} className="border border-gray-200 shadow-xs">
             <CardHeader className="pb-3">
               <div className="flex justify-between items-start">
                 <div className="flex items-center gap-2">

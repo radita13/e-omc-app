@@ -40,6 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# private guides - internal documentation only
-GUIDE_APP.md
-README_GUIDE_APP.txt
+# docs
+.agents
+skills-lock.json

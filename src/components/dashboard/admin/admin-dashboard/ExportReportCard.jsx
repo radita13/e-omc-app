@@ -53,7 +53,7 @@ export function ExportReportCard() {
   };
 
   return (
-    <Card className="h-full border-l-4 border-l-green-600 bg-white shadow-sm">
+    <Card className="h-full border border-gray-200 bg-white shadow-xs">
       <CardHeader>
         <div className="flex items-center gap-2 text-green-700 mb-1">
           <FileSpreadsheet className="h-5 w-5" />

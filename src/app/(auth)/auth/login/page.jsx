@@ -1,4 +1,5 @@
 import LoginForm from "@/components/auth/LoginForm";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Login",
@@ -6,5 +7,9 @@ export const metadata = {
 };
 
 export default function LoginPage() {
-  return <LoginForm />;
+  return (
+    <Suspense fallback={<div className="w-[350px] h-[350px] animate-pulse bg-white rounded-xl" />}>
+      <LoginForm />
+    </Suspense>
+  );
 }

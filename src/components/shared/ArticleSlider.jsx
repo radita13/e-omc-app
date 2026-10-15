@@ -4,7 +4,6 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper/modules";
 import { ArrowLeft, ArrowRight, Maximize, Minimize } from "lucide-react";
-import screenfull from "screenfull";
 import ClientImageControl from "@/components/shared/ClientImageControl";
 import "swiper/css";
 
@@ -28,20 +27,21 @@ export default function ArticleSlider({ images = [], title }) {
   }, [hideControls]);
 
   const toggleFullscreen = () => {
-    if (screenfull.isEnabled && fullscreenRef.current) {
-      screenfull.toggle(fullscreenRef.current);
+    if (!fullscreenRef.current) return;
+    if (document.fullscreenElement) {
+      document.exitFullscreen?.().catch(() => {});
+    } else {
+      fullscreenRef.current.requestFullscreen?.().catch(() => {});
     }
   };
 
   useEffect(() => {
-    if (screenfull.isEnabled) {
-      const handler = () => {
-        setIsFullscreen(screenfull.isFullscreen);
-        showAndHideControls();
-      };
-      screenfull.on("change", handler);
-      return () => screenfull.off("change", handler);
-    }
+    const handler = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+      showAndHideControls();
+    };
+    document.addEventListener("fullscreenchange", handler);
+    return () => document.removeEventListener("fullscreenchange", handler);
   }, [showAndHideControls]);
 
   useEffect(() => {

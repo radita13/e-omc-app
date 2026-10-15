@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,6 +22,8 @@ import { toast } from "sonner";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const sessionExpired = searchParams.get("message") === "session_expired";
 
   const login = useAuthStore((state) => state.login);
 
@@ -100,6 +102,11 @@ export default function LoginForm() {
 
       <form onSubmit={handleSubmit}>
         <CardContent>
+          {sessionExpired && (
+            <div className="bg-amber-50 border border-amber-200 text-amber-900 rounded-lg p-3 text-xs leading-relaxed mb-4">
+              Sesi Anda telah berakhir. Silakan masuk kembali untuk melanjutkan.
+            </div>
+          )}
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="identifier">Email/No.Hp</Label>

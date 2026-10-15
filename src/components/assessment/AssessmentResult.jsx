@@ -114,9 +114,9 @@ export default function AssessmentResult({
   const IconComponent = grade >= 3 ? AlertTriangle : CheckCircle;
 
   return (
-    <Card className={`w-full text-center border-t-4 ${styles.border}`}>
+    <Card className={`w-full text-center border shadow-lg overflow-hidden ${styles.border}`}>
+      <div className={`h-1.5 w-full ${styles.bg.replace("-50", "-500").replace("-100", "-600")}`} />
       <CardHeader>
-        {/* Icon Dinamis */}
         <IconComponent className={`mx-auto h-16 w-16 mb-4 ${styles.icon}`} />
 
         <CardTitle className="text-2xl font-bold uppercase">
@@ -128,14 +128,12 @@ export default function AssessmentResult({
       </CardHeader>
 
       <CardContent className="space-y-6 text-left">
-        {/* Section 1: Nilai Grade */}
         <div className="flex justify-center">
           <div className="bg-gray-100 px-6 py-2 rounded-full font-mono text-sm font-semibold text-gray-600">
             Final Grade: {grade}
           </div>
         </div>
 
-        {/* Section 2: Penjelasan & Tindakan (Box Utama) */}
         <div className={`p-5 rounded-lg border ${styles.bg} ${styles.border}`}>
           <div className="mb-4">
             <h4
@@ -157,7 +155,6 @@ export default function AssessmentResult({
             </p>
           </div>
 
-          {/* Section 3: Interpretasi Klinis */}
           <div
             className={`bg-white/60 p-3 rounded-sm border ${styles.bg} ${styles.border} text-sm text-gray-800 text-center px-4`}
           >
@@ -166,7 +163,6 @@ export default function AssessmentResult({
           </div>
         </div>
 
-        {/* Section 4: Peringatan --- */}
         <div className="mt-6 pt-4 border border-gray-500 w-full rounded-lg p-4">
           <p className="text-[10px] sm:text-base text-gray-700 leading-normal text-justify sm:text-center">
             <AlertTriangle className="inline w-6 h-6 mr-1 text-yellow-600" />
@@ -190,22 +186,27 @@ export default function AssessmentResult({
           >
             <ArrowLeft className="mr-2 h-4 w-4" /> Kembali ke Riwayat
           </Button>
-        ) : (
-          <>
-            <Button
-              onClick={onRestart}
-              className={`w-full cursor-pointer${grade >= 3 ? "bg-red-600 hover:bg-red-700" : ""}`}
-            >
-              Ulangi Asesmen
-            </Button>
-            <Button
-              variant="outline"
-              onClick={onDashboard}
-              className="w-full cursor-pointer"
-            >
-              Lihat Riwayat Saya
-            </Button>
-          </>
+        ) : onDashboard ? (
+          <Button
+            variant="outline"
+            onClick={onDashboard}
+            className="w-full border-gray-300 hover:bg-gray-100 cursor-pointer"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" /> Lihat Riwayat Saya
+          </Button>
+        ) : null}
+
+        {onRestart && (
+          <Button
+            onClick={onRestart}
+            className={`w-full sm:flex-1 cursor-pointer ${
+              grade >= 3
+                ? "bg-red-600 hover:bg-red-700 text-white"
+                : "bg-cyan-600 hover:bg-cyan-700 text-white"
+            }`}
+          >
+            Ulangi Asesmen
+          </Button>
         )}
       </CardFooter>
     </Card>

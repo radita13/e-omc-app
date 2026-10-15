@@ -1,5 +1,5 @@
 "use client";
-import { startTransition, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
 import { getMyProfile, updateMyProfile } from "@/services/user.Service";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import {
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
+import { toast } from "sonner";
 
 export default function ProfileForm() {
   const user = useAuthStore((state) => state.user);
@@ -30,19 +31,11 @@ export default function ProfileForm() {
     radioType: "",
   });
 
-  const [errorField, setErrorField] = useState({});
+  const [initialForm, setInitialForm] = useState(null);
 
-  // State khusus untuk profile tab
   const [profileLoading, setProfileLoading] = useState(false);
-  const [profileError, setProfileError] = useState("");
-  const [profileSuccess, setProfileSuccess] = useState("");
-
-  // State khusus untuk biodata assessment tab
   const [biodataLoading, setBiodataLoading] = useState(false);
-  const [biodataError, setBiodataError] = useState("");
-  const [biodataSuccess, setBiodataSuccess] = useState("");
 
-  // State loading awal (Get User Profile)
   const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
@@ -51,19 +44,11 @@ export default function ProfileForm() {
     hasFetched.current = true;
     setInitialLoading(true);
 
-    startTransition(() => {
-      setProfileSuccess("");
-      setProfileError("");
-      setBiodataSuccess("");
-      setBiodataError("");
-      setErrorField({});
-    });
-
     (async () => {
       try {
         const result = await getMyProfile();
         if (result.success) {
-          setForm({
+          const loadedForm = {
             username: result.data.username || "",
             fullName: result.data.profile?.fullName || "",
             email: result.data.email || "",
@@ -72,14 +57,14 @@ export default function ProfileForm() {
             medicalRecordNumber: result.data.profile?.medicalRecordNumber || "",
             chemoType: result.data.profile?.chemoType || "",
             radioType: result.data.profile?.radioType || "",
-          });
+          };
+          setForm(loadedForm);
+          setInitialForm(loadedForm);
         } else {
-          setProfileError(result.error || "Gagal mengambil profile");
-          setBiodataError(result.error || "Gagal mengambil profile");
+          toast.error(result.error || "Gagal mengambil data profil.");
         }
       } catch (err) {
-        setProfileError(err?.message || "Terjadi kesalahan");
-        setBiodataError(err?.message || "Terjadi kesalahan");
+        toast.error(err?.message || "Terjadi kesalahan sistem.");
       } finally {
         setInitialLoading(false);
       }
@@ -88,25 +73,30 @@ export default function ProfileForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (errorField[name]) {
-      setErrorField((prev) => ({ ...prev, [name]: "" }));
-    }
-
     if (name === "no_hp") {
       const numericValue = value.replace(/[^0-9]/g, "");
-      setForm({ ...form, [name]: numericValue });
+      setForm((prev) => ({ ...prev, [name]: numericValue }));
     } else {
-      setForm({ ...form, [e.target.name]: e.target.value });
+      setForm((prev) => ({ ...prev, [name]: value }));
     }
   };
 
-  // Handler profile submit
+  const isProfileChanged =
+    Boolean(initialForm) &&
+    (form.username !== initialForm.username ||
+      form.no_hp !== initialForm.no_hp);
+
+  const isBiodataChanged =
+    Boolean(initialForm) &&
+    (form.fullName !== initialForm.fullName ||
+      form.medicalRecordNumber !== initialForm.medicalRecordNumber ||
+      form.diagnosis !== initialForm.diagnosis ||
+      form.chemoType !== initialForm.chemoType ||
+      form.radioType !== initialForm.radioType);
+
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
     setProfileLoading(true);
-    setProfileError("");
-    setProfileSuccess("");
-    setErrorField({});
 
     const dataToSubmit = {
       username: form.username,
@@ -115,23 +105,25 @@ export default function ProfileForm() {
     const result = await updateMyProfile(dataToSubmit);
 
     if (result.success) {
-      setProfileSuccess("Perubahan berhasil disimpan!");
+      toast.success("Profile berhasil disimpan!");
+      setInitialForm((prev) => ({
+        ...prev,
+        username: form.username,
+        no_hp: form.no_hp,
+      }));
     } else {
-      if (result.errors) {
-        setErrorField(result.errors);
-      } else {
-        setProfileError(result.error || "Gagal memperbarui profile");
-      }
+      const errorMsg =
+        (result.errors && Object.values(result.errors)[0]) ||
+        result.error ||
+        "Gagal memperbarui profile.";
+      toast.error(errorMsg);
     }
     setProfileLoading(false);
   };
 
-  // Handler biodata assessment submit
   const handleBiodataSubmit = async (e) => {
     e.preventDefault();
     setBiodataLoading(true);
-    setBiodataError("");
-    setBiodataSuccess("");
 
     const dataToSubmit = {
       fullName: form.fullName,
@@ -143,25 +135,35 @@ export default function ProfileForm() {
     const result = await updateMyProfile(dataToSubmit);
 
     if (result.success) {
-      setBiodataSuccess("Perubahan berhasil disimpan!");
+      toast.success("Biodata asesmen berhasil disimpan!");
+      setInitialForm((prev) => ({
+        ...prev,
+        fullName: form.fullName,
+        diagnosis: form.diagnosis,
+        medicalRecordNumber: form.medicalRecordNumber,
+        chemoType: form.chemoType,
+        radioType: form.radioType,
+      }));
     } else {
-      setBiodataError(result.error);
+      const errorMsg =
+        (result.errors && Object.values(result.errors)[0]) ||
+        result.error ||
+        "Gagal memperbarui biodata.";
+      toast.error(errorMsg);
     }
     setBiodataLoading(false);
   };
 
-  // Tampilkan loading awal jika belum selesai
   if (initialLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin" />
+        <Loader2 className="h-8 w-8 animate-spin text-cyan-600" />
       </div>
     );
   }
 
   return (
     <>
-      {/* Handle Menu Tabs*/}
       <Tabs defaultValue="profile">
         <TabsList className="border border-gray-950 py-5">
           <TabsTrigger
@@ -202,9 +204,7 @@ export default function ProfileForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="username">
-                    Username
-                  </Label>
+                  <Label htmlFor="username">Username</Label>
                   <Input
                     id="username"
                     name="username"
@@ -213,17 +213,10 @@ export default function ProfileForm() {
                     onChange={handleChange}
                     autoComplete="username"
                   />
-                  {errorField.username && (
-                    <p className="text-xs text-red-500">
-                      {errorField.username}
-                    </p>
-                  )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">
-                    Email
-                  </Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
                     name="email"
@@ -232,9 +225,6 @@ export default function ProfileForm() {
                     disabled
                     autoComplete="email"
                   />
-                  <p className="text-xs text-gray-500">
-                    Email tidak dapat diubah.
-                  </p>
                 </div>
 
                 <div className="space-y-2">
@@ -248,23 +238,13 @@ export default function ProfileForm() {
                     type="tel"
                     autoComplete="tel"
                   />
-                  {errorField.no_hp && (
-                    <p className="text-xs text-red-500">{errorField.no_hp}</p>
-                  )}
                 </div>
-
-                {profileError && (
-                  <p className="text-sm text-red-500">{profileError}</p>
-                )}
-                {profileSuccess && (
-                  <p className="text-sm text-green-500">{profileSuccess}</p>
-                )}
 
                 <div className="flex justify-end">
                   <Button
                     type="submit"
-                    disabled={profileLoading}
-                    className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer"
+                    disabled={profileLoading || !isProfileChanged}
+                    className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white min-w-[140px]"
                   >
                     {profileLoading ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -292,7 +272,9 @@ export default function ProfileForm() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-2 mt-5">
-                  <Label htmlFor="fullName">Nama Lengkap</Label>
+                  <Label htmlFor="fullName">
+                    Nama Lengkap <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     id="fullName"
                     name="fullName"
@@ -300,11 +282,14 @@ export default function ProfileForm() {
                     onChange={handleChange}
                     placeholder="Joko Prasetyo"
                     autoComplete="name"
+                    required
                   />
                 </div>
 
                 <div className="space-y-2 mt-5">
-                  <Label htmlFor="medicalRecordNumber">Nomor Rekam Medis</Label>
+                  <Label htmlFor="medicalRecordNumber">
+                    Nomor Rekam Medis <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     id="medicalRecordNumber"
                     name="medicalRecordNumber"
@@ -312,11 +297,14 @@ export default function ProfileForm() {
                     onChange={handleChange}
                     placeholder="Contoh: RM123456, RM-2025-001234, dsb."
                     autoComplete="off"
+                    required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="diagnosis">Diagnosis</Label>
+                  <Label htmlFor="diagnosis">
+                    Diagnosis <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     id="diagnosis"
                     name="diagnosis"
@@ -324,6 +312,7 @@ export default function ProfileForm() {
                     onChange={handleChange}
                     placeholder="Contoh: Oral Mucositis Grade II (komplikasi terapi) + kanker orofaring, Kanker Paru-paru, dsb."
                     autoComplete="off"
+                    required
                   />
                 </div>
 
@@ -351,18 +340,11 @@ export default function ProfileForm() {
                   />
                 </div>
 
-                {biodataError && (
-                  <p className="text-sm text-red-500">{biodataError}</p>
-                )}
-                {biodataSuccess && (
-                  <p className="text-sm text-green-500">{biodataSuccess}</p>
-                )}
-
                 <div className="flex justify-end">
                   <Button
                     type="submit"
-                    disabled={biodataLoading}
-                    className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer"
+                    disabled={biodataLoading || !isBiodataChanged}
+                    className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white min-w-[140px]"
                   >
                     {biodataLoading ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
